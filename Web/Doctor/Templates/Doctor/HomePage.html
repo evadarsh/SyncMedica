@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage doctor</title>
+</head>
+<body>
+    {{doctor.doctor_name}}
+    <a href="{% url 'webdoctor:profile' %}">My Profile</a>
+    <a href="{% url 'webdoctor:editprofile' %}">Edit Profile</a>
+    <a href="{% url 'webdoctor:changepassword' %}">ChangePassword</a>
+    <a href="{% url 'webdoctor:clinicrequests' %}">Clinic Requests</a>
+    <a href="{% url 'webdoctor:consultingdeatils' %}">Consulting Details</a>
+</body>
+</html>

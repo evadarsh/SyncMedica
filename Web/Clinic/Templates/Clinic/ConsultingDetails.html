@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Slot</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Add Slot</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1">
+        <tr>
+            <td>Time</td>
+            <td><select name="sel_time" id="sel_time">
+                <option value="">...Select...</option>
+                {% for i in time %}
+                <option {% if i.id  == consultingdata.time_id %}
+                        selected
+                        {% endif %}
+                value="{{i.id}}">{{i.time.time_from}} - {{i.time.time_to}} </option>
+                {% endfor %}
+            </select>
+        </td>
+        </tr>
+        <tr>
+            <td>Day</td>
+            <td><select name="sel_day" id="sel_day">
+                <option value="">...Select...</option>
+                {% for i in day %}
+                <option {% if i.id  == consultingdata.day_id %}
+                        selected
+                        {% endif %}
+                value="{{i.id}}">{{i.day.day_name}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+        <tr>
+        <tr>
+            <td>Doctor Fee</td>
+            <td><input type="text" name="txt_fee" id="" value="{{consultingdata.consulting_fee}}"></td>
+        </tr>
+        <tr>
+            <td>Doctor Token</td>
+            <td><input type="text" name="txt_token" id="" value="{{consultingdata.doctor_token}}"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+    <br><br>
+    <table align="center" border="1">
+        <tr>
+            <td>#</td>
+            <td>Day</td>
+            <td>Time</td>
+            <td>Tokens</td>
+            <td>Fee</td>
+            <td align="center" colspan="2">Action</td>
+        </tr>
+        {% for i in consultingdetails %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.daydata.day_name}}</td>
+            <td>{{i.timedata.time_from}} -- {{i.timedata.time_to}}</td>
+            <td>{{i.consultingdata.doctor_token}}</td>
+            <td>{{i.consultingdata.consulting_fee}}</td>
+            <td>
+                <a href="{% url 'webclinic:deleteconsultingdetails' i.id %}">Delete</a>
+            </td>
+            <td>
+                <a href="{% url 'webclinic:updateconsultingdetails' i.id %}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

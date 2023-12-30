@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Clinic</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+    <table>
+        <tr>
+            <td>District</td>
+            <td>
+                <select name="sel_district" id="sel_district">
+                    <option value="">...Select...</option>
+                    {% for i in dis %}
+                    <option value="{{i.id}}">{{i.district.district_name}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>Place</td>
+            <td>
+                <select name="sel_place" id="sel_place">
+                    <option value="">...Select...</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Search"></td>
+        </tr>
+    </form>
+    </table>
+    <div class="main-card"id="result">
+        {% for i in clinic %}
+        <div class="card">
+            <div><img src="{{i.clinic.clinic_photo}}" width="150" height="150" alt=""></div>
+            <div>{{i.clinic.clinic_name}}</div>
+            <div>{{i.clinic.clinic_contact}}</div>
+            <div><a href="{% url 'webuser:viewdoctors' i.id %}">View Doctors</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$("#sel_district").change(function () {
+    var did = $(this).val();
+    var pid = document.getElementById("sel_place").value;
+    var ur = "{% url 'webguest:ajaxplace' %}";
+    $.ajax({
+        url: ur,
+        data: { disd: did, },
+        success: function (data) {
+            $("#sel_place").html(data);
+
+            var ur = "{% url 'webuser:ajaxclinic' %}";
+            $.ajax({
+                url: ur,
+                data: { pid: pid,did:did },
+                success: function (data) {
+                    $("#result").html(data);
+                },
+            });
+        },
+    });
+});
+
+
+$("#sel_place").change(function () {
+    var pid = $(this).val();
+    var did = document.getElementById("sel_district").value;
+    var ur = "{% url 'webuser:ajaxclinic' %}";
+    $.ajax({
+        url: ur,
+        data: { pid: pid,did:did, },
+        success: function (data) {
+            $("#result").html(data);
+        },
+    });
+});
+</script>
+</body>
+</html>

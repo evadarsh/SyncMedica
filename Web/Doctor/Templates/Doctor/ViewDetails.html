@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Details</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>#</td>
+                <td>Day</td>
+                <td>Time</td>
+                <td>Tokens</td>
+                <td>Fee</td>
+                <td>Appointments</td>
+            </tr>
+            {% for i in consultingdetails %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.daydata.day_name}}</td>
+                <td>{{i.timedata.time_from}} -- {{i.timedata.time_to}}</td>
+                <td>{{i.consultingdata.doctor_token}}</td>
+                <td>{{i.consultingdata.consulting_fee}}</td>
+                <td><a href="{% url 'webdoctor:appointments' i.id %}">Appointments</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <form action="" method="post" >
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id="" value="{{pharmacy.pharmacy_name}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="txt_contact" id="" value="{{pharmacy.pharmacy_contact}}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text"name="txt_address" id="" value="{{pharmacy.pharmacy_address}}"></input></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

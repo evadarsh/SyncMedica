@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Clinic</title>
+</head>
+<body>
+    <div class="main-card"id="result">
+        {% for i in doctor %}
+        <div class="card">
+            <div><img src="{{i.doctor.doctor_photo}}" width="150" height="150" alt=""></div>
+            <div>{{i.doctor.doctor_name}}</div>
+            <div>{{i.doctor.doctor_contact}}</div>
+            <div></div>
+            <div></div>
+            <div><a href="{% url 'webuser:viewdetails' i.id%} ">Get a Appointment</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+</body>
+</html>

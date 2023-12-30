@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Details</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Clinic Details</h1>
+    <form action="" method="post">
+        <table align="center" border="1">
+            <tr>
+                <td>#</td>
+                <td>Clinic</td>
+                <td align="center" colspan="2">Action</td>
+            </tr>
+            {% for i in clinicdoctors %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.clinic.clinic_name}}</td>
+                <td> {% if i.clinicdoctors.doctor_status == "2" %}
+                    Request Accepted Pending to Add Details
+                    {% elif i.clinicdoctors.doctor_status == "3" %}
+                    <a href="{% url 'webdoctor:viewdetails' i.id%}">View Details </a>
+                    {% else %}
+                    Pending
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'webdoctor:clinicrequests' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

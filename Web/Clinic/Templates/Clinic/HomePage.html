@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage clinic</title>
+</head>
+<body>
+    {{clinic.clinic_name}}
+<table border="2">
+    <tr>
+        <td><a href="{% url 'webclinic:profile' %}">My Profile</a></td>
+        <td><a href="{% url 'webclinic:editprofile' %}">Edit Profile</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'webclinic:changepassword' %}">ChangePassword</a></td>
+        <td><a href="{% url 'webclinic:notification' %}">Notification</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'webclinic:clinicdoctors' %}">Add Doctors</a></td>
+    </tr>
+</table>  
+</body>
+</html>

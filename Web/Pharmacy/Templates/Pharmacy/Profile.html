@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1 style="text-align: center;">pharmacy Profile</h1>
+    <table align="center" border="1">
+        <tr>
+            <td>Name</td>
+            <td>{{pharmacy.pharmacy_name}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{pharmacy.pharmacy_contact}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{pharmacy.pharmacy_email}}</td>
+        </tr>
+        <tr>
+            <td>Adress</td>
+            <td>{{pharmacy.pharmacy_address}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a href="{% url 'webpharmacy:editprofile' %}">Editprofile</a>
+                <a href="{% url 'webpharmacy:changepassword' %}">ChangePassword</a>
+            </td>
+        </tr>
+    </table>
+    {% if msg %}
+    <script>
+        alert("Link Is sent to the {{msg}}")
+        window.location = "{% url 'webpharmacy:homepage' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <style>
+         #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* semi-transparent white */
+            display: none;
+            backdrop-filter: blur(10px); /* Adjust the blur effect as needed */
+            z-index: 1000; /* Ensure it's above other elements on the page */
+        }
+        #css3-spinner-svg-pulse-wrapper {
+            position: absolute;
+            overflow: hidden;
+            width: 260px;
+            height: 210px;
+            top: 50%;
+            left: 50%;
+            margin-top: -105px;
+            margin-left: -130px;
+            background-color: transparent;
+            animation: none;
+            -webkit-animation: none;
+            z-index: 1001; /* Ensure it's above the overlay */
+
+        }
+
+        #css3-spinner-svg-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -105px;
+            margin-left: -275px;
+        }
+
+        #css3-spinner-pulse {
+            stroke-dasharray: 281;
+            -webkit-animation: dash 5s infinite linear forwards;
+        }
+
+        /*Animation*/
+        @-webkit-keyframes dash {
+            from {
+                stroke-dashoffset: 814;
+            }
+
+            to {
+                stroke-dashoffset: -814;
+            }
+        }
+
+        @keyframes dash {
+            from {
+                stroke-dashoffset: 814;
+            }
+
+            to {
+                stroke-dashoffset: -814;
+            }
+        }
+    </style>
+</head>
+
+<body onload="disabledays()">
+    <div id="overlay"></div>
+
+    <div id='css3-spinner-svg-pulse-wrapper'>
+        <svg id='css3-spinner-svg-pulse' version='1.2' height='210' width='550' xmlns='http://www.w3.org/2000/svg'
+            viewport='0 0 60 60' xmlns:xlink='http://www.w3.org/1999/xlink'>
+            <path id='css3-spinner-pulse' stroke='#DE6262' fill='none' stroke-width='2' stroke-linejoin='round'
+                d='M0,90L250,90Q257,60 262,87T267,95 270,88 273,92t6,35 7,-60T290,127 297,107s2,-11 10,-10 1,1 8,-10T319,95c6,4 8,-6 10,-17s2,10 9,11h210' />
+        </svg>
+    </div>
+    <h1 style="text-align: center;">Details</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>#</td>
+                <td>Day</td>
+                <td>Time</td>
+                <td>Tokens</td>
+                <td>Fee</td>
+            </tr>
+            {% for i in consultingdetails %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.daydata.day_name}}</td>
+                <td>{{i.timedata.time_from}} -- {{i.timedata.time_to}}</td>
+                <td>{{i.consultingdata.doctor_token}}</td>
+                <td>{{i.consultingdata.consulting_fee}}</td>
+                <input type="hidden" name="txt_days" class="inputField" value="{{i.daydata.day_name}}" id="txt_days">
+                <input type="hidden" name="consultingdetails_id" value="{{i.id}}">
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br>
+        <table align="center" border="1">
+            <tr>
+                <td>Time</td>
+                <td>
+                    <select name="sel_time" id="sel_time">
+                        <option value="">...Select...</option>
+                        {% for i in consultingdetails %}
+                        <option value="{{i.id}}">{{i.timedata.time_from}} -- {{i.timedata.time_to}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td><input type="date" name="txt_date" id="datePicker" onchange="checkDayValidity()"></td>
+            <tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="TAKE APPOINTMENT">
+                </td>
+            </tr>
+            </tr>
+        </table>
+</body>
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+     $("#overlay").hide();
+     $("#css3-spinner-svg-pulse-wrapper").hide();
+
+    $("#datePicker").change(function () {
+        var date = document.getElementById("datePicker").value
+        var conid = document.getElementById("sel_time").value
+        var ur = "{% url 'webuser:ajaxbooking' %}"
+        // console.log('hi');
+        // console.log(conid);
+        $("#overlay").show();
+        $("#css3-spinner-svg-pulse-wrapper").show();
+
+        $.ajax({
+            url: ur,
+            data: { conid: conid, date: date, },
+            success: function (data) {
+                // $("#sel_place").html(data);
+                // if (data != "") {
+                    // document.getElementById("datePicker").value = ""
+                    // document.getElementById("sel_time").value = ""
+                    $("#overlay").hide();
+                    $("#css3-spinner-svg-pulse-wrapper").hide();
+
+
+                // }
+            },
+        });
+        console.log(date, conid);
+    });
+</script>
+
+<script>
+    function checkDayValidity(days) {
+        
+        let ArrData = [];
+        var datePicker = document.getElementById("datePicker");
+        var selectedDate = new Date(datePicker.value);
+        var inputFields = document.getElementsByClassName("inputField");
+
+        for (var i = 0; i < inputFields.length; i++) {
+            ArrData.push(inputFields[i].value);
+        }
+        // console.log("ArrData:", ArrData);
+
+
+        // Assuming date is in the format "yyyy-mm-dd"
+        function getDayOfWeek(dateString) {
+            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const date = new Date(dateString);
+            const dayOfWeekIndex = date.getDay();
+            return daysOfWeek[dayOfWeekIndex];
+        }
+
+        const exampleDate = document.getElementById("datePicker").value
+        const dayOfWeek = getDayOfWeek(exampleDate);
+        // console.log(`${exampleDate} is a ${dayOfWeek}.`);
+
+        var flage = 0
+        for (var d = 0; d < ArrData.length; d++) {
+            if (ArrData[d] == dayOfWeek) {
+                flage = flage + 1
+            }
+        }
+        if (flage == 0) {
+            alert("Please Select a Consulting day..")
+            document.getElementById("datePicker").value = ""
+        }
+    }
+    function disabledays() {
+        var datePicker = document.getElementById("datePicker");
+
+        // Set the minimum date to tomorrow
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        var dd = tomorrow.getDate();
+        var mm = tomorrow.getMonth() + 1; // January is 0!
+        var yyyy = tomorrow.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        tomorrow = yyyy + '-' + mm + '-' + dd;
+        datePicker.setAttribute("min", tomorrow);
+    }
+
+</script>

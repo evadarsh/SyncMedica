@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Requests</title>
+</head>
+<body>
+    {% if clinicdoctors %}
+    <h1 style="text-align: center;">Clinic Requests</h1>
+    <form action="" method="post">
+        <table align="center" border="1">
+            <tr>
+                <td>#</td>
+                <td>Clinic</td>
+                <td align="center" colspan="2">Action</td>
+            </tr>
+            {% for i in clinicdoctors %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.clinic.clinic_name}}</td>
+                <td>
+                    <a href="{% url 'webdoctor:rejectclinic' i.id %}">Reject</a>
+                </td>
+                <td>
+                    <a href="{% url 'webdoctor:updateclinic' i.id %}">Approve</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% else %}
+    <h1 style="color: red;" align="center">No More Request</h1>
+    {% endif %}
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'webdoctor:clinicrequests' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

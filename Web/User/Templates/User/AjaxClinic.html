@@ -1,0 +1,10 @@
+<div class="main-card">
+    {% for i in clinic %}
+    <div class="card">
+        <div><img src="{{i.clinic.clinic_photo}}" width="150" height="150" alt=""></div>
+        <div>{{i.clinic.clinic_name}}</div>
+        <div>{{i.clinic.clinic_contact}}</div>
+        <div><a href="{% url 'webuser:viewdoctors' i.id %}">View Doctors</a></div>
+    </div>
+    {% endfor %}
+</div>

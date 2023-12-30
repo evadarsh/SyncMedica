@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Notification</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>Notification Title</td>
+                <td><input type="text" name="txt_notificationtitle" id="" value=""></td>
+            </tr>
+            <tr>
+                <td>Notification Details</td>
+                <td><textarea name="txt_notificationdetails" id="" value=""></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    <br><br>
+</form>
+</body>
+</html>

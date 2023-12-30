@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1 style="text-align: center;">User Profile</h1>
+    <table align="center" border="1">
+        <tr>
+            <td>Name</td>
+            <td>{{user.user_name}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{user.user_contact}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{user.user_email}}</td>
+        </tr>
+        <tr>
+            <td>Adress</td>
+            <td>{{user.user_address}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a href="{% url 'webuser:editprofile' %}">Editprofile</a>
+                <a href="{% url 'webuser:changepassword' %}">ChangePassword</a>
+            </td>
+        </tr>
+    </table>
+    {% if msg %}
+    <script>
+        alert("Link is sent to the {{msg}}")
+        window.location = "{% url 'webuser:homepage' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
