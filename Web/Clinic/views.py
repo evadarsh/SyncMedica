@@ -58,7 +58,7 @@ def notification(request):
         return render(request,"Clinic/Notification.html",{"notification":notification_data})
 
 def clinicdoctors(request):
-    doctor = db.collection("tbl_doctor").stream()
+    doctor = db.collection("tbl_doctor").where("doctor_status", "==", "1").stream()
     doctor_data = []
     for d in doctor:
         doctor_data.append({"doctor":d.to_dict(),"id":d.id})
