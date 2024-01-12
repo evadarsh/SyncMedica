@@ -36,9 +36,38 @@ def changepassword(request):
     email = pharmacy["pharmacy_email"]
     pass_link = firebase_admin.auth.generate_password_reset_link(email)
     send_mail(
-        'Reset your password ', #subject
-        "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + pass_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET team.",#body
+        'Reset your password ', 
+        "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + pass_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Sync Medica.",#body
         settings.EMAIL_HOST_USER,
         [email],
     )
     return render(request,"Pharmacy/Profile.html",{"msg":email})
+
+def users(request):
+    user_data = db.collection("tbl_user").stream()
+    users = []
+    for usersdata in user_data:
+        users.append({"userdata":usersdata.to_dict(),"id":usersdata.id})  
+    return render(request, "Pharmacy/Users.html", {'users': users})
+
+def viewprescriptions(request,id):
+    prescriptions = db.collection("tbl_prescription").where("user_id", "==", id).stream()
+    pre_data = []
+    for p in prescriptions:
+        pre = p.to_dict()
+        appointment = db.collection("tbl_appointments").document(pre["appointment_id"]).get().to_dict()
+        con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
+        cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
+        doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
+        pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct})
+    user_profile = db.collection("tbl_user").document(id).get().to_dict()
+    return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
+
+def ajaxsearch_patient(request):
+    patient = db.collection("tbl_user").stream()
+    p_data = []
+    for p in patient:
+        pt = p.to_dict()
+        if pt["patient_id"].startswith(request.GET.get("pid")):
+            p_data.append({"patientdata":p.to_dict()})
+    return render(request,"Pharmacy/AjaxPatientSearch.html",{"patient":p_data})

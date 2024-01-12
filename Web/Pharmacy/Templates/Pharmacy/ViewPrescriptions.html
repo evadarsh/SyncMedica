@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Prescription</title>
+    <style>
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile {
+            padding: 10px;
+            background-color: #E1F5FE;
+            width: fit-content;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .details {
+            padding: 16px;
+            background-color: #E1F5FE;
+            width: fit-content;
+            border-radius: 10px;
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .content-width {
+            width: 100px;
+        }
+        .con-width {
+            width: 300px;
+        }
+        .main-card {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .bill {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        img {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Patient Details</h2>
+    <form action="" method="post">
+        <div class="profile-card">
+            <div class="profile">
+                <div><img width="150px" height="150" img src="{{user_profile.user_photo}}" ></div>
+                <div>Name :{{user_profile.user_name}}</div>
+                <div>Age :{{user_profile.user_age}}</div>
+            </div>
+        </div>
+        {% for i in prescriptions %}
+        <div class="main-card">
+            <a href="">
+                <div class="details">
+                    <div class="content"><div class="content-width">Doctor</div><div class="con-width">{{i.doctor.doctor_name}}({{i.doctor.doctor_department}})</div></div>
+                    <div class="content"><div class="content-width">Date</div><div class="con-width">{{i.appointment.appointment_date}}</div></div>
+                    <div class="content"><div class="content-width">Description</div><div class="con-width">{{i.prescriptiondata.description}}</div></div>
+                    <div class="content"><div class="content-width">Prescription</div><div class="con-width">{{i.prescriptiondata.prescription}}</div></div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>

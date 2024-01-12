@@ -1,0 +1,12 @@
+<table border="1" align="center">
+    <tr>
+        <th>Patient ID</th>
+        <th>Name</th>
+    </tr>
+    {% for i in patient %}
+    <tr>
+        <td>{{i.patientdata.patient_id}}</td>
+        <td>{{i.patientdata.user_name}}</td>
+    </tr>
+    {% endfor %}
+</table>

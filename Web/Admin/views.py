@@ -68,14 +68,14 @@ def medicalofficerregistration(request):
             sd.child(path).put(image)
             download_url = sd.child(path).get_url(None)
         
-        medicalofficer = {"medicalofficer_id":(medicalofficer.aid),
+        medicalofficer = {"medicalofficer_id":(medicalofficer.uid),
                 "medicalofficer_name":request.POST.get("txt_name"),
                 "medicalofficer_district":request.POST.get("sel_district"),
                 "medicalofficer_contact":request.POST.get("txt_contact"),
                 "medicalofficer_email":request.POST.get("txt_email"),
                 "medicalofficer_photo":(download_url),}
         db.collection("tbl_medicalofficer").add(medicalofficer)
-        return redirect("webadmin:registration")
+        return redirect("webadmin:medicalofficerregistration")
     else:
         return render(request,"Admin/MedicalOfficerRegistration.html",{"district":dis_data})
 

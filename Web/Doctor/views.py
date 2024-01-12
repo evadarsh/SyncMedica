@@ -43,7 +43,7 @@ def changepassword(request):
     pass_link = firebase_admin.auth.generate_password_reset_link(email)
     send_mail(
         'Reset your password ', #subject
-        "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + pass_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET team.",#body
+        "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + pass_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Sync Medica.",#body
         settings.EMAIL_HOST_USER,
         [email],
     )
