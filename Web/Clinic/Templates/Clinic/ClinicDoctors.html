@@ -15,7 +15,7 @@
             <td><select name="sel_doctor" id="sel_doctor">
                 <option value="">...Select...</option>
                 {% for i in doctor %}
-                <option value="{{i.id}}">{{i.doctor.doctor_name}}</option>
+                <option value="{{i.id}}">{{i.doctor.doctor_name}} ({{i.doctor.doctor_qualification}})</option>
                 {% endfor %}
             </select></td>
         </tr>

@@ -59,7 +59,8 @@ def viewprescriptions(request,id):
         con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
         cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
         doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
-        pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct})
+        dept = db.collection("tbl_department").document(doct["doctor_department"]).get().to_dict()
+        pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct,"doc_dept":dept})
     user_profile = db.collection("tbl_user").document(id).get().to_dict()
     return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
 

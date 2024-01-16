@@ -43,3 +43,28 @@ def changepassword(request):
     )
     return render(request,"Medicalofficer/Profile.html",{"msg":email})
 
+
+def approvedoctor(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        doctor_data = []
+        for p in place:
+            doctor = db.collection("tbl_doctor").where("doctor_status", "==", "0").where("doctor_place", "==", p.id).stream()
+            for s in doctor:
+                doc = s.to_dict()
+                dept = db.collection("tbl_department").document(doc["doctor_department"]).get().to_dict()
+                doctor_data.append({"doctor":s.to_dict(),"id":s.id,"doc_dept":dept})
+        return render(request,"MedicalOfficer/ApproveDoctor.html",{"doctor":doctor_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+    
+def acceptdoctor(request,id):
+    data = {"doctor_status":"1"}
+    db.collection("tbl_doctor").document(id).update(data)
+    return redirect("webmedicalofficer:approvedoctor")
+
+def rejecttdoctor(request,id):
+    data = {"doctor_status":"1"}
+    db.collection("tbl_doctor").document(id).update(data)
+    return redirect("webmedicalofficer:approvedoctor")
+

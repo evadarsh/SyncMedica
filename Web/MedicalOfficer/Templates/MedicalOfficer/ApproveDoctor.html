@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Doctors</title>
+</head>
+<body>
+<form action="" method="post">
+        <table align="center" border="5" width="95%">
+            <tr align="center">
+                <td>Sl No:</td>
+                <td>Name</td>
+                <td>Profile Photo</td>
+                <td>Department</td>
+                <td>About</td>
+                <td>Contact</td>
+                <td>Certificate</td>
+                <td colspan="2">Action</td>
+            </tr>
+            {% for i in doctor %}
+            <tr align="center">
+                <td>{{ forloop.counter }}</td>
+                <td>{{i.doctor.doctor_name}}</td>
+                <td><img src="{{i.doctor.doctor_photo}}" width="150" height="150" alt=""></td>
+                <td>{{i.doc_dept.department_name}}</td>
+                <td>{{i.doctor.doctor_about}}</td>
+                <td>{{i.doctor.doctor_contact}}</td>
+                <td><img src="{{i.doctor.doctor_certificate}}" width="150" height="150" alt=""></td>
+                <td><a href="{% url 'webmedicalofficer:acceptdoctor' i.id %}">Accept</a></td>
+                <td><a href="">Reject</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

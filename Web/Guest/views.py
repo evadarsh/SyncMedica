@@ -146,7 +146,7 @@ def doctorregistration(request):
                 "doctor_name":request.POST.get("txt_name"),
                 "doctor_contact":request.POST.get("txt_contact"),
                 "doctor_email":request.POST.get("txt_email"),
-                "doctor_certifacte":id_url,
+                "doctor_certificate":id_url,
                 "doctor_place":request.POST.get("sel_place"),
                 "doctor_department":request.POST.get("sel_department"),
                 "doctor_address":request.POST.get("txt_address"),
@@ -211,7 +211,7 @@ def login(request):
     clinicid=""
     pharmacyid=""
     doctorid=""
-    medicalofficerid=""
+    medicalofficerid = medicalofficerdistrict = ""
     if request.method =="POST":
         email = request.POST.get("txt_email")
         password = request.POST.get("txt_password")
@@ -238,6 +238,8 @@ def login(request):
         medicalofficer_data = db.collection("tbl_medicalofficer").where("medicalofficer_id", "==", id).stream()
         for m in medicalofficer_data:
             medicalofficerid = m.id
+            data = m.to_dict()
+            medicalofficerdistrict = data["medicalofficer_district"]
         if userid:
             request.session["uid"] = userid
             return redirect("webuser:homepage")
@@ -255,6 +257,7 @@ def login(request):
             return redirect("webdoctor:homepage")
         elif medicalofficerid:
             request.session["mid"] = medicalofficerid
+            request.session["med_district"] = medicalofficerdistrict
             return redirect("webmedicalofficer:homepage")
         else:
             return render(request,"Guest/Login.html",{"msg":"Error in Login"})

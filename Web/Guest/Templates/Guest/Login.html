@@ -1,15 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Sync Medica Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light gray background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #31acd8; /* Green color associated with health */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            opacity: 0;
+            animation: slideInLeft 0.5s ease-in-out forwards;
+        }
+
+        input[type="submit"] {
+            background-color: #31acd8; /* Green submit button */
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #287aa8; /* Darker green on hover */
+            transform: scale(1.1); /* Scale effect on hover */
+        }
+
+        a {
+            text-decoration: none;
+            color: #31acd8; /* Green color for links */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1 style="text-align: center;">Login Your Account</h1>
+    <h1><i class="icon fas fa-stethoscope"></i> Sync Medica Login</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <table align="center" border="1">
+        <table>
             <tr>
                 <td>Email</td>
                 <td><input type="email" name="txt_email" id=""></td>
@@ -22,11 +104,12 @@
                 <td colspan="2" align="center"><input type="submit" value="Login"></td>
             </tr>
             <tr>
-             <td colspan="2" align="center">
-                <a href="">New Account?</a>
-             </td>
+                <td colspan="2" align="center">
+                    <a href="#">New Account?</a>
+                </td>
             </tr>
         </table>
     </form>
 </body>
+
 </html>
