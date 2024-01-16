@@ -28,7 +28,6 @@
                 <td>{{i.doctor.doctor_contact}}</td>
                 <td><img src="{{i.doctor.doctor_certificate}}" width="150" height="150" alt=""></td>
                 <td><a href="{% url 'webmedicalofficer:acceptdoctor' i.id %}">Accept</a></td>
-                <td><a href="{% url 'webmedicalofficer:rejectdoctor' i.id %}">Reject</a></td>
             </tr>
             {% endfor %}
         </table>

@@ -25,7 +25,6 @@
                 <td>{{i.clinic.clinic_address}}</td>
                 <td>{{i.clinic.clinic_contact}}</td>
                 <td><img src="{{i.clinic.clinic_certificate}}" width="150" height="150" alt=""></td>
-                <td><a href="{% url 'webmedicalofficer:acceptclinic' i.id %}">Accept</a></td>
                 <td><a href="{% url 'webmedicalofficer:rejectclinic' i.id %}">Reject</a></td>
             </tr>
             {% endfor %}

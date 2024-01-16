@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Pharmacy</title>
+</head>
+<body>
+<form action="" method="post">
+        <table align="center" border="5" width="95%">
+            <tr align="center">
+                <td>Sl No:</td>
+                <td>Name</td>
+                <td>Pharmacy Photo</td>
+                <td>Address</td>
+                <td>Contact</td>
+                <td>Certificate</td>
+                <td colspan="2">Action</td>
+            </tr>
+            {% for i in pharmacy %}
+            <tr align="center">
+                <td>{{ forloop.counter }}</td>
+                <td>{{i.pharmacy.pharmacy_name}}</td>
+                <td><img src="{{i.pharmacy.pharmacy_photo}}" width="150" height="150" alt=""></td>
+                <td>{{i.pharmacy.pharmacy_address}}</td>
+                <td>{{i.pharmacy.pharmacy_contact}}</td>
+                <td><img src="{{i.pharmacy.pharmacy_certificate}}" width="150" height="150" alt=""></td>
+                <td><a href="{% url 'webmedicalofficer:acceptpharmacy' i.id %}">Accept</a></td>
+                <td><a href="{% url 'webmedicalofficer:rejectpharmacy' i.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

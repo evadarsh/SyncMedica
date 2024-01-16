@@ -58,13 +58,134 @@ def approvedoctor(request):
     else:
         return render(request,"MedicalOfficer/HomePage.html")
     
+def accepteddoctorslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        doctor_data = []
+        for p in place:
+            doctor = db.collection("tbl_doctor").where("doctor_status", "==", "1").where("doctor_place", "==", p.id).stream()
+            for s in doctor:
+                doc = s.to_dict()
+                dept = db.collection("tbl_department").document(doc["doctor_department"]).get().to_dict()
+                doctor_data.append({"doctor":s.to_dict(),"id":s.id,"doc_dept":dept})
+        return render(request,"MedicalOfficer/AcceptedDoctors.html",{"doctor":doctor_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+
+def rejecteddoctorslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        doctor_data = []
+        for p in place:
+            doctor = db.collection("tbl_doctor").where("doctor_status", "==", "2").where("doctor_place", "==", p.id).stream()
+            for s in doctor:
+                doc = s.to_dict()
+                dept = db.collection("tbl_department").document(doc["doctor_department"]).get().to_dict()
+                doctor_data.append({"doctor":s.to_dict(),"id":s.id,"doc_dept":dept})
+        return render(request,"MedicalOfficer/RejectedDoctors.html",{"doctor":doctor_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+
 def acceptdoctor(request,id):
     data = {"doctor_status":"1"}
     db.collection("tbl_doctor").document(id).update(data)
-    return redirect("webmedicalofficer:approvedoctor")
+    return redirect("webmedicalofficer:accepteddoctorslist")
 
-def rejecttdoctor(request,id):
-    data = {"doctor_status":"1"}
+def rejectdoctor(request,id):
+    data = {"doctor_status":"2"}
     db.collection("tbl_doctor").document(id).update(data)
-    return redirect("webmedicalofficer:approvedoctor")
+    return redirect("webmedicalofficer:rejecteddoctorslist")
+
+def approveclinic(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        clinic_data = []
+        for p in place:
+            clinic = db.collection("tbl_clinic").where("clinic_status", "==", "0").where("clinic_place", "==", p.id).stream()
+            for s in clinic:
+                clinic_data.append({"clinic":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/ApproveClinic.html",{"clinic":clinic_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+    
+def acceptedclinicslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        clinic_data = []
+        for p in place:
+            clinic = db.collection("tbl_clinic").where("clinic_status", "==", "1").where("clinic_place", "==", p.id).stream()
+            for s in clinic:
+                clinic_data.append({"clinic":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/AcceptedClinics.html",{"clinic":clinic_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+    
+def rejectedclinicslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        clinic_data = []
+        for p in place:
+            clinic = db.collection("tbl_clinic").where("clinic_status", "==", "2").where("clinic_place", "==", p.id).stream()
+            for s in clinic:
+                clinic_data.append({"clinic":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/RejectedClinics.html",{"clinic":clinic_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+
+def acceptclinic(request,id):
+    data = {"clinic_status":"1"}
+    db.collection("tbl_clinic").document(id).update(data)
+    return redirect("webmedicalofficer:acceptedclinicslist")
+
+def rejectclinic(request,id):
+    data = {"clinic_status":"2"}
+    db.collection("tbl_clinic").document(id).update(data)
+    return redirect("webmedicalofficer:rejectedclinicslist")
+
+def approvepharmacy(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        pharmacy_data = []
+        for p in place:
+            pharmacy = db.collection("tbl_pharmacy").where("pharmacy_status", "==", "0").where("pharmacy_place", "==", p.id).stream()
+            for s in pharmacy:
+                pharmacy_data.append({"pharmacy":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/ApprovePharmacy.html",{"pharmacy":pharmacy_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+    
+def acceptedpharmacieslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        pharmacy_data = []
+        for p in place:
+            pharmacy = db.collection("tbl_pharmacy").where("pharmacy_status", "==", "1").where("pharmacy_place", "==", p.id).stream()
+            for s in pharmacy:
+                pharmacy_data.append({"pharmacy":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/AcceptedPharmacies.html",{"pharmacy":pharmacy_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+    
+def rejectedpharmacieslist(request):
+    if 'mid' in request.session:
+        place = db.collection("tbl_place").where("district_id", "==", request.session["med_district"]).stream()
+        pharmacy_data = []
+        for p in place:
+            pharmacy = db.collection("tbl_pharmacy").where("pharmacy_status", "==", "2").where("pharmacy_place", "==", p.id).stream()
+            for s in pharmacy:
+                pharmacy_data.append({"pharmacy":s.to_dict(),"id":s.id})
+        return render(request,"MedicalOfficer/RejectedPharmacies.html",{"pharmacy":pharmacy_data})
+    else:
+        return render(request,"MedicalOfficer/HomePage.html")
+
+    
+def acceptpharmacy(request,id):
+    data = {"pharmacy_status":"1"}
+    db.collection("tbl_pharmacy").document(id).update(data)
+    return redirect("webmedicalofficer:acceptedpharmacieslist")
+
+def rejectpharmacy(request,id):
+    data = {"pharmacy_status":"2"}
+    db.collection("tbl_pharmacy").document(id).update(data)
+    return redirect("webmedicalofficer:rejectedpharmacieslist")
 

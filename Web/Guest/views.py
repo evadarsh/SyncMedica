@@ -99,7 +99,7 @@ def pharmacyregistration(request):
                 "pharmacy_name":request.POST.get("txt_name"),
                 "pharmacy_contact":request.POST.get("txt_contact"),
                 "pharmacy_email":request.POST.get("txt_email"),
-                "pharmacy_certifacte":certificate_url,
+                "pharmacy_certificate":certificate_url,
                 "pharmacy_place":request.POST.get("sel_place"),
                 "pharmacy_address":request.POST.get("txt_address"),
                 "pharmacy_status":"0"}
@@ -196,7 +196,7 @@ def clinicregistration(request):
                 "clinic_name":request.POST.get("txt_name"),
                 "clinic_contact":request.POST.get("txt_contact"),
                 "clinic_email":request.POST.get("txt_email"),
-                "clinic_certifacte":certificate_url,
+                "clinic_certificate":certificate_url,
                 "clinic_place":request.POST.get("sel_place"),
                 "clinic_address":request.POST.get("txt_address"),
                 "clinic_status":"0"}

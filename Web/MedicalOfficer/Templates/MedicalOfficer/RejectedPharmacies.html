@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Approve Clinic</title>
+    <title>Approve Pharmacy</title>
 </head>
 <body>
 <form action="" method="post">
@@ -11,22 +11,21 @@
             <tr align="center">
                 <td>Sl No:</td>
                 <td>Name</td>
-                <td>Clinic Photo</td>
+                <td>Pharmacy Photo</td>
                 <td>Address</td>
                 <td>Contact</td>
                 <td>Certificate</td>
                 <td colspan="2">Action</td>
             </tr>
-            {% for i in clinic %}
+            {% for i in pharmacy %}
             <tr align="center">
                 <td>{{ forloop.counter }}</td>
-                <td>{{i.clinic.clinic_name}}</td>
-                <td><img src="{{i.clinic.clinic_photo}}" width="150" height="150" alt=""></td>
-                <td>{{i.clinic.clinic_address}}</td>
-                <td>{{i.clinic.clinic_contact}}</td>
-                <td><img src="{{i.clinic.clinic_certificate}}" width="150" height="150" alt=""></td>
-                <td><a href="{% url 'webmedicalofficer:acceptclinic' i.id %}">Accept</a></td>
-                <td><a href="{% url 'webmedicalofficer:rejectclinic' i.id %}">Reject</a></td>
+                <td>{{i.pharmacy.pharmacy_name}}</td>
+                <td><img src="{{i.pharmacy.pharmacy_photo}}" width="150" height="150" alt=""></td>
+                <td>{{i.pharmacy.pharmacy_address}}</td>
+                <td>{{i.pharmacy.pharmacy_contact}}</td>
+                <td><img src="{{i.pharmacy.pharmacy_certificate}}" width="150" height="150" alt=""></td>
+                <td><a href="{% url 'webmedicalofficer:acceptpharmacy' i.id %}">Accept</a></td>
             </tr>
             {% endfor %}
         </table>

@@ -9,7 +9,46 @@
     {{medicalofficer.medicalofficer_name}}
     <a href="{% url 'webmedicalofficer:profile' %}">My Profile</a>
     <a href="{% url 'webmedicalofficer:editprofile' %}">Edit Profile</a>
-    <a href="{% url 'webmedicalofficer:changepassword' %}">ChangePassword</a>
-    <a href="{% url 'webmedicalofficer:approvedoctor' %}">Approve Doctors</a>
+    <a href="{% url 'webmedicalofficer:changepassword' %}">Change Password</a>
+    <table>
+        <tr>
+          <th>Doctor Management</th>
+        </tr>
+          <td><a href="{% url 'webmedicalofficer:approvedoctor' %}">Approve Doctor</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:accepteddoctorslist' %}">Accepted Doctors</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:rejecteddoctorslist' %}">Rejected Doctors</a></td>
+        </tr>
+
+        <tr>
+          <th>Clinic Management</th>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:approveclinic' %}">Approve Clinic</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:acceptedclinicslist' %}">Accepted Clinics</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:rejectedclinicslist' %}">Rejected Clinics</a></td>
+        </tr>
+        
+        <tr>
+          <th>Pharmacy Management</th>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:approvepharmacy' %}">Approve Pharmacy</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:acceptedpharmacieslist' %}">Accepted Pharmacies</a></td>
+        </tr>
+        <tr>
+          <td><a href="{% url 'webmedicalofficer:rejectedpharmacieslist' %}">Rejected Pharmacies</a></td>
+        </tr>
+      </table>
+      
 </body>
 </html>
