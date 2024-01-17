@@ -70,8 +70,8 @@
                 <div>Age :{{user_profile.user_age}}</div>
             </div>
         </div>
-        {% for i in prescriptions %}
         <div class="main-card">
+        {% for i in prescriptions %}
             <a href="">
                 <div class="details">
                     <div class="content"><div class="content-width">Doctor</div><div class="con-width">{{i.doctor.doctor_name}}({{i.doc_dept.department_name}})</div></div>
@@ -80,8 +80,8 @@
                     <div class="content"><div class="content-width">Prescription</div><div class="con-width">{{i.prescriptiondata.prescription}}</div></div>
                 </div>
             </a>
-        </div>
         {% endfor %}
+        </div>
     </table>
 </form>
 </body>

@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_const
 import 'package:flutter/material.dart';
+import 'package:sync_medica/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -15,6 +16,7 @@ class _LoginState extends State<Login> {
   void login() {
     print({_emailcontroller.text});
     print({_passwordcontroller.text});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home(),));
   }
 
   @override
@@ -77,7 +79,7 @@ class _LoginState extends State<Login> {
           Center(child: ElevatedButton(onPressed: () {}, child: const Text('Sign Up'))),
           GestureDetector(
               onTap: () {
-                print('Forget Password....................');
+                
               },
               child: const Text('Forget Password?')),
         ],
