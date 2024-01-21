@@ -149,9 +149,11 @@
             data: { conid: conid, date: date, },
             success: function (data) {
                 // $("#sel_place").html(data);
-                // if (data != "") {
-                    // document.getElementById("datePicker").value = ""
-                    // document.getElementById("sel_time").value = ""
+                if (data != "") {
+                    alert(data)
+                    document.getElementById("datePicker").value = ""
+                    document.getElementById("sel_time").value = ""
+                }
                     $("#overlay").hide();
                     $("#css3-spinner-svg-pulse-wrapper").hide();
 

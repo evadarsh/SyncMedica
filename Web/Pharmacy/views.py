@@ -51,7 +51,7 @@ def users(request):
     return render(request, "Pharmacy/Users.html", {'users': users})
 
 def viewprescriptions(request,id):
-    prescriptions = db.collection("tbl_prescription").where("user_id", "==", id).stream()
+    prescriptions = db.collection("tbl_prescription").order_by("prescription_date", direction=firestore.Query.DESCENDING).where("user_id", "==", id).stream()
     pre_data = []
     for p in prescriptions:
         pre = p.to_dict()

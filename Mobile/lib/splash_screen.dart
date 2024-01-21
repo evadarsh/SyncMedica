@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sync_medica/login.dart';
+import 'package:sync_medica/login_page.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen
 ({super.key});
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
 void initState(){
   super.initState();
   Future.delayed(const Duration(seconds: 5), () {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginPage()));
   });
 }
   @override

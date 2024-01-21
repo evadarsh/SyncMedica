@@ -40,7 +40,7 @@
                 {% elif c.clinicdoctors.doctor_status == "2" %}
                 Request Approved |  <a href="{% url 'webclinic:consultingdetails' c.id %}">Add Details</a>
                 {% elif c.clinicdoctors.doctor_status == "3" %}
-                <a href="{% url 'webclinic:consultingdetails' c.id %}">Update Details</a>
+                <a href="{% url 'webclinic:consultingdetails' c.id %}">Add/Update Details</a>
                 {% else %}
                 Pending
                 {% endif %}

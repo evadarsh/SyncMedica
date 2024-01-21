@@ -126,13 +126,10 @@ def appointments(request,id):
     return render(request,"Doctor/ViewAppointments.html",{"appointments":appointment_data})
 
 def prescription(request,id):
-    appointments = db.collection("tbl_appointments").stream()
-    for a in appointments:
-        appointments_data = a.to_dict()
-        user = appointments_data["user_id"]
-    userdata = db.collection("tbl_user").document(user).get().to_dict()
+    appointments = db.collection("tbl_appointments").document(id).get().to_dict()
+    userdata = db.collection("tbl_user").document(appointments["user_id"]).get().to_dict()
     if request.method == "POST":
-        data = {"user_id":user,"appointment_id": id,"prescription":request.POST.get("txt_prescription"),"description":request.POST.get("txt_description"),"prescription_status": "0"}
+        data = {"user_id":appointments["user_id"],"appointment_id": id,"prescription":request.POST.get("txt_prescription"),"description":request.POST.get("txt_description"),"prescription_status": "0","prescription_date":appointments["appointment_date"] }
         db.collection("tbl_prescription").add(data)
         status = {"appointment_status": "1"}
         db.collection("tbl_appointments").document(id).update(status)
