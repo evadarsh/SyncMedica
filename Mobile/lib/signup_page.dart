@@ -23,6 +23,11 @@ class SignupPage extends StatelessWidget {
                 const Column(
                   children: <Widget>[
                     SizedBox(height: 60.0),
+                    Image(
+                      image: AssetImage('assets/logo2.png'),
+                      height: 100,
+                      width: 100,
+                    ),
                     Text(
                       "Sign up",
                       style: TextStyle(
@@ -31,12 +36,12 @@ class SignupPage extends StatelessWidget {
                           color: Color.fromARGB(255, 0, 194, 234)),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Text(
                       "Create your account",
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 20,
                           color: Color.fromARGB(255, 0, 188, 176)),
                     )
                   ],
@@ -61,7 +66,8 @@ class SignupPage extends StatelessWidget {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(18),
                               borderSide: BorderSide.none),
-                          fillColor: Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
+                          fillColor:
+                              Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
                           filled: true,
                           prefixIcon: const Icon(Icons.email)),
                     ),
@@ -72,7 +78,8 @@ class SignupPage extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
+                        fillColor:
+                            Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.key),
                       ),
@@ -85,7 +92,8 @@ class SignupPage extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
+                        fillColor:
+                            Color.fromARGB(255, 0, 188, 176).withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.key),
                       ),
