@@ -20,6 +20,9 @@ sd = firebase.storage()
 
 db = firestore.client()
 
+def index(request):
+    return render(request,"Guest/index.html")
+
 def userregistration(request):
     dis = db.collection("tbl_district").stream()
     dis_data = []

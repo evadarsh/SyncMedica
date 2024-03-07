@@ -38,7 +38,7 @@ def registration(request):
             sd.child(path).put(image)
             download_url = sd.child(path).get_url(None)
         
-        admin = {"admin_id":(admin.aid),
+        admin = {"admin_id":admin.uid,
                 "admin_name":request.POST.get("txt_name"),
                 "admin_contact":request.POST.get("txt_contact"),
                 "admin_email":request.POST.get("txt_email"),
