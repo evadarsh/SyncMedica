@@ -11,19 +11,21 @@
         <table align="center" border="1">
             <tr>
                 <td>#</td>
+                <td>Token Number</td>
                 <td>Patient Name</td>
                 <td>Appointment Date</td>
-                <td align="center" colspan="2">Action</td>
+                <td align="center">Action</td>
             </tr>
             {% for i in appointments %}
             <tr>
                 <td>{{forloop.counter}}</td>
+                <td>{{i.appointmentdetails.token}}</td>
                 <td>{{i.user.user_name}}</td>
                 <td>
                     {{i.appointmentdetails.appointment_date}}
                 </td>
                 <td>
-                    <td><a href="{% url 'webdoctor:prescription' i.id %}">Add Prescription</a></td>
+                    <a href="{% url 'webdoctor:prescription' i.id %}">Add Prescription</a>
                 </td>
             </tr>
             {% endfor %}

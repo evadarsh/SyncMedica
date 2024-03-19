@@ -102,15 +102,39 @@ def viewdetails(request,id):
         data = c.to_dict()
         time = db.collection("tbl_time").document(data["time_id"]).get().to_dict()
         day = db.collection("tbl_day").document(data["day_id"]).get().to_dict()
-        cdata.append({"consultingdata":c.to_dict(),"id":c.id,"timedata":time,"daydata":day}) 
+        cdata.append({"consultingdata":c.to_dict(),"id":c.id,"timedata":time,"daydata":day})
     if request.method == "POST":
-        data =db.collection("tbl_appointments").where("user_id", "==", request.session["uid"],"appointment_date", "==", request.POST.get("txt_date")).stream()
-        # datedata = date.today()
-        # data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0"}
-        # db.collection("tbl_appointments").add(data)
+        datas =db.collection("tbl_appointments").where("appointment_date", "==", request.POST.get("txt_date")).where("appointment_time", "==", request.POST.get("sel_time")).get()
+        cou = int(len(datas))
+        token = cou + 1
+        consultingdoctors = db.collection("tbl_consultingdetails").where("clinicdoctors_id", "==",id).stream()
+        doctor_data =db.collection("tbl_clinicdoctors").document(id).get().to_dict()
+        doctor_id = doctor_data["doctor_id"]
+        doctor_name = db.collection("tbl_doctor").document(doctor_id).get().to_dict()
+        # print(doctor_name["doctor_name"])
+        dname = str(doctor_name["doctor_name"])
+        # print(type(dname))
+        user = db.collection("tbl_user").document(request.session["uid"]).get().to_dict()
+        email = user["user_email"]
+        name = user["user_name"]
+        days = request.POST.get("txt_date")
+        con = db.collection("tbl_consultingdetails").document(request.POST.get("sel_time")).get().to_dict()
+        times  = db.collection("tbl_time").document(con["time_id"]).get().to_dict()
+        # print(times["time_from"] ,times["time_to"])
+        send_mail(
+            'Appointment Successfull', #subject
+            "\rHello"+ str(name) +"\r\nYour appointment for " + dname +".\n for the date and time " + str(days) + "," + str(times["time_from"]) + "to" + str(times["time_to"]) +"Your Token number is"+ str(token) + "\r\n Thanks. \r\n Sync Medica.",#body
+            settings.EMAIL_HOST_USER,
+            [email]
+        )
+        datedata = date.today()
+        data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_time":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0","token":token}
+        db.collection("tbl_appointments").add(data)
         return redirect("webuser:homepage")
     else:
         return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
+
+
 
 def ajaxclinic(request):
     clinic_data = []
