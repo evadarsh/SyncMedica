@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage pharmacy</title>
+</head>
+<body>
+    {{pharmacy.pharmacy_name}}
+    <a href="{% url 'webpharmacy:profile' %}">My Profile</a>
+    <a href="{% url 'webpharmacy:editprofile' %}">Edit Profile</a>
+    <a href="{% url 'webpharmacy:changepassword' %}">ChangePassword</a>
+    <a href="{% url 'webpharmacy:users' %}">Users</a>
+</body>
+</html>

@@ -1,3 +1,6 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,17 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
     <style>
-         #overlay {
+        #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent; /* semi-transparent white */
+            background-color: transparent;
+            /* semi-transparent white */
             display: none;
-            backdrop-filter: blur(10px); /* Adjust the blur effect as needed */
-            z-index: 1000; /* Ensure it's above other elements on the page */
+            backdrop-filter: blur(10px);
+            /* Adjust the blur effect as needed */
+            z-index: 1000;
+            /* Ensure it's above other elements on the page */
         }
+
         #css3-spinner-svg-pulse-wrapper {
             position: absolute;
             overflow: hidden;
@@ -29,7 +36,8 @@
             background-color: transparent;
             animation: none;
             -webkit-animation: none;
-            z-index: 1001; /* Ensure it's above the overlay */
+            z-index: 1001;
+            /* Ensure it's above the overlay */
 
         }
 
@@ -44,6 +52,7 @@
         #css3-spinner-pulse {
             stroke-dasharray: 281;
             -webkit-animation: dash 5s infinite linear forwards;
+            animation: dash 5s infinite linear forwards;
         }
 
         /*Animation*/
@@ -67,6 +76,7 @@
             }
         }
     </style>
+
 </head>
 
 <body onload="disabledays()">
@@ -107,7 +117,7 @@
             <tr>
                 <td>Time</td>
                 <td>
-                    <select name="sel_time" id="sel_time">
+                    <select name="sel_time" id="sel_time" onchange="getBooking()">
                         <option value="">...Select...</option>
                         {% for i in consultingdetails %}
                         <option value="{{i.id}}">{{i.timedata.time_from}} -- {{i.timedata.time_to}}</option>
@@ -117,7 +127,7 @@
             </tr>
             <tr>
                 <td>Date</td>
-                <td><input type="date" name="txt_date" id="datePicker" onchange="checkDayValidity()"></td>
+                <td><input type="date" name="txt_date" id="datePicker" onchange="checkDayValidity(),getBooking()" ></td>
             <tr>
             <tr>
                 <td colspan="2">
@@ -135,34 +145,36 @@
      $("#overlay").hide();
      $("#css3-spinner-svg-pulse-wrapper").hide();
 
-    $("#datePicker").change(function () {
+    function getBooking() {
         var date = document.getElementById("datePicker").value
         var conid = document.getElementById("sel_time").value
-        var ur = "{% url 'webuser:ajaxbooking' %}"
-        // console.log('hi');
-        // console.log(conid);
-        $("#overlay").show();
-        $("#css3-spinner-svg-pulse-wrapper").show();
+        if( (conid != "") && (datePicker != "")) {
+            var ur = "{% url 'webuser:ajaxbooking' %}"
+            // console.log('hi');
+            // console.log(conid);
+            $("#overlay").show();
+            $("#css3-spinner-svg-pulse-wrapper").show();
 
-        $.ajax({
-            url: ur,
-            data: { conid: conid, date: date, },
-            success: function (data) {
-                // $("#sel_place").html(data);
-                if (data != "") {
-                    alert(data)
-                    document.getElementById("datePicker").value = ""
-                    document.getElementById("sel_time").value = ""
-                }
-                    $("#overlay").hide();
-                    $("#css3-spinner-svg-pulse-wrapper").hide();
+            $.ajax({
+                url: ur,
+                data: { conid: conid, date: date, },
+                success: function (data) {
+                    // $("#sel_place").html(data);
+                    if (data != "") {
+                        // alert(data)
+                        document.getElementById("datePicker").value = ""
+                        document.getElementById("sel_time").value = ""
+                    }
+                        $("#overlay").hide();
+                        $("#css3-spinner-svg-pulse-wrapper").hide();
 
 
-                // }
-            },
-        });
-        console.log(date, conid);
-    });
+                    // }
+                },
+            });
+            console.log(date, conid);
+        }
+    }
 </script>
 
 <script>
@@ -226,3 +238,4 @@
     }
 
 </script>
+{% endblock content %}

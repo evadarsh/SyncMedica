@@ -104,9 +104,10 @@ def viewdetails(request,id):
         day = db.collection("tbl_day").document(data["day_id"]).get().to_dict()
         cdata.append({"consultingdata":c.to_dict(),"id":c.id,"timedata":time,"daydata":day}) 
     if request.method == "POST":
-        datedata = date.today()
-        data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0"}
-        db.collection("tbl_appointments").add(data)
+        data =db.collection("tbl_appointments").where("user_id", "==", request.session["uid"],"appointment_date", "==", request.POST.get("txt_date")).stream()
+        # datedata = date.today()
+        # data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0"}
+        # db.collection("tbl_appointments").add(data)
         return redirect("webuser:homepage")
     else:
         return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
