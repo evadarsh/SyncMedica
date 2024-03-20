@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import render,redirect
+from django.core.mail import send_mail
+from django.conf import settings
 import firebase_admin
 from firebase_admin import storage,auth,credentials,firestore
 import pyrebase
+
 
 config = {
   "apiKey": "AIzaSyC70VZNPMcg6Y2dRM3yqDa6u-jlD3kb5eg",
@@ -67,6 +70,13 @@ def userregistration(request):
                 "user_place":request.POST.get("sel_place"),
                 "user_address":request.POST.get("txt_address"),}
         db.collection("tbl_user").add(user)
+        send_mail(
+            'Registration Success',
+            'Hello ' + request.POST.get("txt_name") + ',\n\nYour registration was successful. Thank you for signing up!\n\nSync Medica',
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
         return redirect("webguest:login")
     else:
         return render(request,"Guest/UserRegistration.html",{"district":dis_data})
