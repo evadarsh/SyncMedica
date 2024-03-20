@@ -1,71 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f0f0;
+            /* Light background color */
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #333;
+            /* Dark text color */
+            margin-bottom: 20px;
+            text-align: center;
+
+        }
+
+        .input-radio input {
+            width: 100%;
+            height: 20px;
+            background: #f5f5f5;
+            /* Light input background color */
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .textarea-box {
+            position: relative;
+            margin: 0 auto 20px;
+            text-align: center;
+            /* Center the content */
+            max-width: 300px;
+            /* Adjust max-width as needed */
+        }
+
+        .textarea-box textarea {
+            width: 100%;
+            min-height: 100px;
+            /* Adjust as needed */
+            max-height: 200px;
+            /* Adjust as needed */
+            resize: vertical;
+            /* Allow vertical resizing */
+            background: #f5f5f5;
+            /* Light input background color */
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            /* Dark text color */
+            padding: 10px 20px;
+            /* Adjust padding as needed */
+            transition: background 0.3s;
+        }
+
+        .textarea-box textarea:focus {
+            background: #e0e0e0;
+            /* Darker background color on focus */
+        }
+
+        .textarea-box label {
+            position: absolute;
+            top: 10px;
+            /* Adjust top position as needed */
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #666;
+            /* Placeholder text color */
+            pointer-events: none;
+            transition: .5s ease;
+        }
+
+        .textarea-box textarea:focus+label,
+        .textarea-box textarea:not(:placeholder-shown)+label {
+            top: 1px;
+            font-size: .8em;
+            color: #ff6f61;
+            /* Highlight color for labels */
+        }
+
+        .input-radio {
+            position: relative;
+            margin: 0 auto 20px;
+            text-align: center;
+            /* Center the content */
+            max-width: 300px;
+            /* Adjust max-width as needed */
+        }
+
+        .input-radio input[type="radio"] {
+            display: none;
+            /* Hide the actual radio buttons */
+        }
+
+        .input-radio input[type="radio"]+label {
+            display: inline-block;
+            cursor: pointer;
+            margin-right: 10px;
+            /* Adjust spacing between radio buttons */
+            font-size: 1em;
+            color: #333;
+            /* Dark text color */
+        }
+
+        .input-radio input[type="radio"]+label:before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            /* Border color */
+            background-color: #f5f5f5;
+            /* Background color */
+            vertical-align: middle;
+            margin-right: 8px;
+            /* Adjust spacing between radio button and label */
+        }
+
+        .input-radio input[type="radio"]:checked+label:before {
+            background-color: #ff6f61;
+            /* Checked background color */
+        }
+
+        .input-radio input[type="radio"]+label:after {
+            content: "";
+            display: none;
+        }
+
+        .input-radio input[type="radio"]:checked+label:after {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            /* Color of the 'checked' indicator */
+            vertical-align: middle;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 50px;
+            background: #f5f5f5;
+            /* Light input background color */
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            /* Dark text color */
+            padding: 0 20px;
+            transition: background 0.3s;
+        }
+
+        .input-box input:focus {
+            background: #e0e0e0;
+            /* Darker background color on focus */
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #666;
+            /* Placeholder text color */
+            pointer-events: none;
+            transition: .5s ease;
+        }
+
+        .input-box input:focus~label,
+        .input-box input:valid~label {
+            top: 1px;
+            font-size: .8em;
+            color: #ff6f61;
+            /* Highlight color for labels */
+        }
+
+        .input-box2 {
+            position: relative;
+            margin: 0 auto 20px;
+            text-align: center;
+            /* Center the content */
+            max-width: 300px;
+            /* Adjust max-width as needed */
+        }
+
+        .input-box2 input {
+            justify-content: space-evenly;
+            height: 50px;
+            background: #f5f5f5;
+            /* Light input background color */
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            /* Dark text color */
+            padding: 0 20px;
+            transition: background 0.3s;
+        }
+
+        .input-box2 input:focus {
+            background: #e0e0e0;
+            /* Darker background color on focus */
+        }
+
+        .input-box2 label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #666;
+            /* Placeholder text color */
+            pointer-events: none;
+            transition: .5s ease;
+        }
+
+        .input-box2 input:focus~label,
+        .input-box2 input:valid~label {
+            top: 1px;
+            font-size: .8em;
+            color: #ff6f61;
+            /* Highlight color for labels */
+        }
+
+
+
+        .input-select {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-select select {
+            width: 100%;
+            height: 50px;
+            background: #f5f5f5;
+            /* Light input background color */
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            /* Dark text color */
+            padding: 0 20px;
+            transition: background 0.3s;
+        }
+
+        .input-select label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #666;
+            /* Placeholder text color */
+            pointer-events: none;
+            transition: .5s ease;
+        }
+
+        .input-select select:focus+label,
+        .input-select select:not(:placeholder-shown)+label {
+            top: 1px;
+            font-size: .8em;
+            color: #ff6f61;
+            /* Highlight color for labels */
+        }
+
+        .image-label {
+            top: 1px;
+            font-size: .8em;
+            color: #ff6f61;
+            /* Highlight color for labels */
+        }
+
+        .image-preview-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            /* Center items vertically */
+        }
+
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            border: 2px solid #ccc;
+            position: relative;
+        }
+
+        .image-preview-button {
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            font-size: 32px;
+            color: #007bff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .row-container {
+            display: flex;
+            justify-content: space-between;
+            /* Adjust spacing between items */
+        }
+
+        .row-container2 {
+            display: flex;
+            justify-content: space-evenly;
+            /* Adjust spacing between items */
+        }
+
+        .input-radio,
+        .input-box {
+            width: 48%;
+            /* Adjust width as needed */
+        }
+
+
+        .btn {
+            width: 100%;
+            height: 45px;
+            background: #ff6f61;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 600;
+            transition: background 0.3s;
+            position: relative;
+            margin: 0 auto 20px;
+            /* Center vertically and add bottom margin */
+            text-align: center;
+            max-width: 300px;
+            /* Limit the width */
+        }
+
+        .btn:hover {
+            background: #ed465e;
+            /* Button hover background color */
+        }
+
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            font-size: 1em;
+            color: #ff6f61;
+            /* Signup link color */
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <h1 style="text-align: center;">User Registration Form</h1>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table align="center" border="1">
-        <tr>
-            <td>Image</td>
-            <td><input type="file" name="txt_photo" id=""></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="txt_name" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Contact</td>
-            <td><input type="text" name="txt_contact" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="email" name="txt_email" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Age</td>
-            <td><input type="text" name="txt_age" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>
+    <div class="container">
+        <h2>User Register</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="text-center mb-3 image-preview-container">
+                <label for="txt_photo" class="image-label">Profile Image</label> 
+                <div class="image-preview" id="image-preview">
+                    <label for="txt_photo" class="image-preview-button" id="image-preview-button">+</label>
+                </div>
+                <input type="file" style="display: none;" class="form-control-file" id="txt_photo" name="txt_photo"
+                    accept="image/*" onchange="previewImage(this)">
+            </div>
+            <div class="row-container">
+                <div class="input-box">
+                    <input type="text" name="txt_name" id="txt_name" value="">
+                    <label for="txt_name">Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="txt_contact" id="txt_contact" value="">
+                    <label for="txt_contact">Contact</label>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="input-box">
+                    <input type="email" name="txt_email" id="txt_email" value="">
+                    <label for="txt_email">Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="txt_age" id="txt_age" value="">
+                    <label for="txt_age">Age</label>
+                </div>
+            </div>
+            <div class="input-radio">
                 <input type="radio" name="radio_gender" id="male" value="Male">
                 <label for="male">Male</label>
                 <input type="radio" name="radio_gender" id="female" value="Female">
                 <label for="female">Female</label>
-            </td>
-        </tr>        
-        <tr>
-            <td>District</td>
-            <td><select name="sel_district" id="sel_district">
-                <option value="">...Select...</option>
-                {% for i in district %}
-                <option value="{{i.id}}">{{i.district.district_name}}</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td>Place</td>
-            <td><select name="sel_place" id="sel_place">
-                <option value="">...Select...</option>
-            </select></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td><input type="text" name="txt_address" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="txt_password" id="" value=""></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Register"></td>
-        </tr>
-    </table>
+                <input type="radio" name="radio_gender" id="other" value="Other">
+                <label for="other">Other</label>
+            </div>
+            <div class="row-container2">
+                <div class="input-select">
+                    <select name="sel_district" id="sel_district">
+                        <option value="">...Select...</option>
+                        {% for i in district %}
+                        <option value="{{i.id}}">{{i.district.district_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="sel_district">District</label>
+                </div>
+
+                <div class="input-select">
+                    <select name="sel_place" id="sel_place">
+                        <option value="">...Select...</option>
+                    </select>
+                    <label for="sel_place">Place</label>
+                </div>
+            </div>
+            <div class="textarea-box">
+                <textarea name="txt_address" id="txt_address" required></textarea>
+                <label for="txt_address">Address</label>
+            </div>
+
+            <div class="input-box2">
+                <input type="password" name="txt_password" id="txt_password" value="">
+                <label for="txt_password">Password</label>
+            </div>
+
+            <div class="btn">
+                <button type="submit" class="btn" value="Register">Register</button>
+            </div>
+            </table>
 </body>
 {% if msg %}
 <script>
@@ -73,9 +492,31 @@
     window.location = "{% url 'webguest:userregistration' %}"
 </script>
 {% endif %}
+
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    function previewImage(input) {
+        var preview = document.getElementById('image-preview');
+        var button = document.getElementById('image-preview-button');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.style.backgroundImage = "url('" + reader.result + "')";
+
+            // Hide the "+" button after previewing the image
+            button.style.display = 'none';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.backgroundImage = null;
+            button.style.display = 'block'; // Show the "+" button
+        }
+    }
+
     $("#sel_district").change(function () {
         var did = $(this).val();
         var ur = "{% url 'webguest:ajaxplace' %}"

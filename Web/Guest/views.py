@@ -67,7 +67,7 @@ def userregistration(request):
                 "user_place":request.POST.get("sel_place"),
                 "user_address":request.POST.get("txt_address"),}
         db.collection("tbl_user").add(user)
-        return redirect("webguest:userregistration")
+        return redirect("webguest:login")
     else:
         return render(request,"Guest/UserRegistration.html",{"district":dis_data})
     
