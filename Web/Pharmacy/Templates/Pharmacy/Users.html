@@ -91,7 +91,7 @@
                 <tr>
                     <td>{{ i.userdata.patient_id }}</td>
                     <td>{{ i.userdata.user_name }}</td>
-                    <td><a href="{% url 'webpharmacy:viewprescriptions' i.id %}">View Prescriptions</a></td>
+                    <td><a href="{% url 'webpharmacy:checkstatus' i.id %}">View Prescriptions</a></td>
                 </tr>
             {% endfor %}
         </table>

@@ -9,4 +9,7 @@ urlpatterns = [
     path('users/',views.users,name="users"),
     path('viewprescriptions/<str:id>',views.viewprescriptions,name="viewprescriptions"),
     path('ajaxsearch_patient/',views.ajaxsearch_patient,name="ajaxsearch_patient"),
+    path('generatebill/<str:id>',views.generatebill,name="generatebill"),
+    path('otpverification/<str:id>',views.otpverification,name="otpverification"),
+    path('checkstatus/<str:id>',views.checkstatus,name="checkstatus"),
 ]

@@ -5,6 +5,7 @@ import pyrebase
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+import random
 
 db = firestore.client()
 
@@ -50,23 +51,54 @@ def users(request):
         users.append({"userdata":usersdata.to_dict(),"id":usersdata.id})  
     return render(request, "Pharmacy/Users.html", {'users': users})
 
-def viewprescriptions(request,id):
+def checkstatus(request,id):
     user=db.collection("tbl_user").document(id).get().to_dict()
+    email = user["user_email"]
     if user["user_status"] == "0":
-        prescriptions = db.collection("tbl_prescription").order_by("prescription_date", direction=firestore.Query.DESCENDING).where("user_id", "==", id).stream()
-        pre_data = []
-        for p in prescriptions:
-            pre = p.to_dict()
-            appointment = db.collection("tbl_appointments").document(pre["appointment_id"]).get().to_dict()
-            con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
-            cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
-            doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
-            dept = db.collection("tbl_department").document(doct["doctor_department"]).get().to_dict()
-            pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct,"doc_dept":dept})
-        user_profile = db.collection("tbl_user").document(id).get().to_dict()
-        return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
+        return redirect("webpharmacy:viewprescriptions",id=id)
     else:
-        return redirect("webpharmacy:users")
+        otp = random.randint(100000,999999)
+        # print(otp)
+        request.session["otp"] = otp
+        send_mail(
+            'OPEN YOUR ACCOUNT ', 
+            "\rHello \r\n Your One Time Password(OTP) for login is " + str(otp) + ".\n If you didn't ask to open your account, you can ignore this email. \r\n Thanks. \r\n Sync Medica.",#body
+            settings.EMAIL_HOST_USER,
+            [email],
+        )
+        return redirect("webpharmacy:otpverification",id=id)
+
+def viewprescriptions(request,id):
+    prescriptions = db.collection("tbl_prescription").order_by("prescription_date", direction=firestore.Query.DESCENDING).where("user_id", "==", id).stream()
+    pre_data = []
+    for p in prescriptions:
+        pre = p.to_dict()
+        appointment = db.collection("tbl_appointments").document(pre["appointment_id"]).get().to_dict()
+        con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
+        cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
+        doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
+        dept = db.collection("tbl_department").document(doct["doctor_department"]).get().to_dict()
+        pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct,"doc_dept":dept})
+    user_profile = db.collection("tbl_user").document(id).get().to_dict()
+    return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
+
+def generatebill(request,id):
+    if request.method == "POST":
+        return redirect("webpharmacy:viewprescriptions",id=id)
+    return render(request,"Pharmacy/GenerateBill.html")
+
+def otpverification(request,id):
+    if request.method == "POST":
+        otp = request.session["otp"]
+        text = int(request.POST.get("txt_otp"))
+        if text == otp:
+            print("hai")
+            del request.session["otp"]
+            return redirect("webpharmacy:viewprescriptions",id=id)
+        else:
+            return render(request,"Pharmacy/OTP.html",{"msg":"Invalid OTP"})
+    else:
+        return render(request,"Pharmacy/OTP.html")
 
 def ajaxsearch_patient(request):
     patient = db.collection("tbl_user").stream()

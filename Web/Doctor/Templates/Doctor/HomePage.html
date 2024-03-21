@@ -223,9 +223,10 @@
 							data-toggle="dropdown"
 						>
 							<span class="user-icon">
-								<img src="{% static 'Doctor/vendors/images/photo1.jpg' %}" alt="" />
+								<img src="{{doctor.doctor_photo}}" alt="" />
 							</span>
-							<span class="user-name">Ross C. Lopez</span>
+							
+							<span class="user-name">{{doctor.doctor_name}}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
@@ -244,11 +245,6 @@
 							>
 						</div>
 					</div>
-				</div>
-				<div class="github-link">
-					<a href="https://github.com/dropways/deskapp" target="_blank"
-						><img src="{% static 'Doctor/vendors/images/github.svg' %}" alt=""
-					/></a>
 				</div>
 			</div>
 		</div>
