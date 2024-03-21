@@ -51,18 +51,22 @@ def users(request):
     return render(request, "Pharmacy/Users.html", {'users': users})
 
 def viewprescriptions(request,id):
-    prescriptions = db.collection("tbl_prescription").order_by("prescription_date", direction=firestore.Query.DESCENDING).where("user_id", "==", id).stream()
-    pre_data = []
-    for p in prescriptions:
-        pre = p.to_dict()
-        appointment = db.collection("tbl_appointments").document(pre["appointment_id"]).get().to_dict()
-        con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
-        cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
-        doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
-        dept = db.collection("tbl_department").document(doct["doctor_department"]).get().to_dict()
-        pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct,"doc_dept":dept})
-    user_profile = db.collection("tbl_user").document(id).get().to_dict()
-    return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
+    user=db.collection("tbl_user").document(id).get().to_dict()
+    if user["user_status"] == "0":
+        prescriptions = db.collection("tbl_prescription").order_by("prescription_date", direction=firestore.Query.DESCENDING).where("user_id", "==", id).stream()
+        pre_data = []
+        for p in prescriptions:
+            pre = p.to_dict()
+            appointment = db.collection("tbl_appointments").document(pre["appointment_id"]).get().to_dict()
+            con_details = db.collection("tbl_consultingdetails").document(appointment["consultingdetails_id"]).get().to_dict()
+            cli_doc = db.collection("tbl_clinicdoctors").document(con_details["clinicdoctors_id"]).get().to_dict()
+            doct = db.collection("tbl_doctor").document(cli_doc["doctor_id"]).get().to_dict()
+            dept = db.collection("tbl_department").document(doct["doctor_department"]).get().to_dict()
+            pre_data.append({"prescriptiondata":p.to_dict(),"id":p.id,"appointment":appointment,"doctor":doct,"doc_dept":dept})
+        user_profile = db.collection("tbl_user").document(id).get().to_dict()
+        return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
+    else:
+        return redirect("webpharmacy:users")
 
 def ajaxsearch_patient(request):
     patient = db.collection("tbl_user").stream()
@@ -70,5 +74,5 @@ def ajaxsearch_patient(request):
     for p in patient:
         pt = p.to_dict()
         if pt["patient_id"].startswith(request.GET.get("pid")):
-            p_data.append({"patientdata":p.to_dict()})
+            p_data.append({"patientdata":p.to_dict(),"id":p.id})
     return render(request,"Pharmacy/AjaxPatientSearch.html",{"patient":p_data})

@@ -68,7 +68,8 @@ def userregistration(request):
                 "user_age":request.POST.get("txt_age"),
                 "user_gender":request.POST.get("radio_gender"),
                 "user_place":request.POST.get("sel_place"),
-                "user_address":request.POST.get("txt_address"),}
+                "user_address":request.POST.get("txt_address"),
+                "user_status":"0"}
         db.collection("tbl_user").add(user)
         send_mail(
             'Registration Success',

@@ -133,8 +133,31 @@ def viewdetails(request,id):
         return redirect("webuser:homepage")
     else:
         return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
+    
+def logout(request):
+    if 'uid' in request.session:
+        request.session.pop("uid")
+        return redirect("webguest:login")
+    else:
+        return redirect("webguest:login")
 
-
+def lockprofile(request):
+    if 'uid' in request.session:
+        uid = request.session["uid"]
+        data = {'user_status': "1"} 
+        db.collection("tbl_user").document(uid).update(data)
+        return redirect("webuser:profile")
+    else:
+        return redirect("webguest:login")
+        
+def unlockprofile(request):
+    if 'uid' in request.session:
+        uid = request.session["uid"]
+        data = {'user_status': "0"} 
+        db.collection("tbl_user").document(uid).update(data)
+        return redirect("webuser:profile")
+    else:
+        return redirect("webguest:login")
 
 def ajaxclinic(request):
     clinic_data = []

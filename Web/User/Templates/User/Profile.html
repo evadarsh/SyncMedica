@@ -1,3 +1,6 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,10 @@
 <body>
     <h1 style="text-align: center;">User Profile</h1>
     <table align="center" border="1">
+        <tr>
+            <td>Patient Id</td>
+            <td>{{user.patient_id}}</td>
+        </tr>
         <tr>
             <td>Name</td>
             <td>{{user.user_name}}</td>
@@ -28,6 +35,14 @@
             <td colspan="2" align="center">
                 <a href="{% url 'webuser:editprofile' %}">Editprofile</a>
                 <a href="{% url 'webuser:changepassword' %}">ChangePassword</a>
+                <a href="{% url 'webuser:logout' %}">Logout</a>
+                {% if user.user_status == "0" %}
+                Profile is unlocked
+                <a href="{% url 'webuser:lockprofile' %}">Lock My Profile</a>
+                {% else %}
+                Profile is locked
+                <a href="{% url 'webuser:unlockprofile' %}">Unlock My Profile</a>
+                {% endif %}
             </td>
         </tr>
     </table>
@@ -39,3 +54,4 @@
     {% endif %}
 </body>
 </html>
+{% endblock content %}
