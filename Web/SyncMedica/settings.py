@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Doctor',
     'Pharmacy',
     'User',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,33 @@
+{% load mathfilters %}
+<table cellpadding="10" align="center">
+    <tr>
+        <td>#</td>
+        <td>Medicine Name</td>
+        <td>Count</td>
+        <td>Rate</td>
+        <td>Total</td>
+        <td>Action</td>
+    </tr>
+    {% for i in bill %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.billdata.Name}}</td>
+        <td><input type="text" name="txt_count" id="txt_count" onchange="checkqty(this.value,'{{i.id}}')" value="{{i.billdata.qty}}"></td>
+        <td>{{i.billdata.rate}}</td>
+        <td>{{i.billdata.rate|mul:i.billdata.qty}}</td>
+        <td><i class="fa-solid fa-trash" onclick="deletebill('{{i.id}}')"></i></td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4" align="right">Total</td>
+        <td>{{total}}</td>
+    </tr>
+    <tr>
+        <td colspan="6" align="right">
+            {% if count == 0 %}
+            <button>Generate Bill</button></td>
+            {% else %}
+            <a href="">View Bill</a>
+            {% endif %}
+    </tr>
+</table>

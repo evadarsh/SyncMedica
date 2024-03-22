@@ -1,0 +1,279 @@
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+
+    <title>Market Bills</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        /*Invoice*/
+        .invoice .top-left {
+            font-size: 65px;
+            color: #3ba0ff;
+        }
+
+        .invoice .top-right {
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .invoice .table-row {
+            margin-left: -15px;
+            margin-right: -15px;
+            margin-top: 25px;
+        }
+
+        .invoice .payment-info {
+            font-weight: 500;
+        }
+
+        .invoice .table-row .table>thead {
+            border-top: 1px solid #ddd;
+        }
+
+        .invoice .table-row .table>thead>tr>th {
+            border-bottom: none;
+        }
+
+        .invoice .table>tbody>tr>td {
+            padding: 8px 20px;
+        }
+
+        .invoice .invoice-total {
+            margin-right: -10px;
+            font-size: 16px;
+        }
+
+        .invoice .last-row {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .invoice-ribbon {
+            width: 85px;
+            height: 88px;
+            overflow: hidden;
+            position: absolute;
+            top: -1px;
+            right: 14px;
+        }
+
+        .ribbon-inner {
+            text-align: center;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            position: relative;
+            padding: 7px 0;
+            left: -5px;
+            top: 11px;
+            width: 120px;
+            background-color: #66c591;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .ribbon-inner:before,
+        .ribbon-inner:after {
+            content: "";
+            position: absolute;
+        }
+
+        .ribbon-inner:before {
+            left: 0;
+        }
+
+        .ribbon-inner:after {
+            right: 0;
+        }
+
+        .ribbon-cash {
+            text-align: center;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            position: relative;
+            padding: 7px 0;
+            left: -5px;
+            top: 11px;
+            width: 120px;
+            background-color: #c50c0c;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .ribbon-cash:before,
+        .ribbon-cash:after {
+            content: "";
+            position: absolute;
+        }
+
+        .ribbon-cash:before {
+            left: 0;
+        }
+
+        .ribbon-cash:after {
+            right: 0;
+        }
+
+        @media(max-width:575px) {
+
+            .invoice .top-left,
+            .invoice .top-right,
+            .invoice .payment-details {
+                text-align: center;
+            }
+
+            .invoice .from,
+            .invoice .to,
+            .invoice .payment-details {
+                float: none;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 25px;
+            }
+
+            .invoice p.lead,
+            .invoice .from p.lead,
+            .invoice .to p.lead,
+            .invoice .payment-details p.lead {
+                font-size: 22px;
+            }
+
+            .invoice .btn {
+                margin-top: 10px;
+            }
+        }
+
+        @media print {
+            .invoice {
+                width: 900px;
+                height: 800px;
+            }
+        }
+    </style>
+</head>
+
+<script>
+    function invoice(bill) {
+        var printContent = document.getElementById(bill).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+</script>
+
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootstrap snippets bootdeys">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default invoice" id="invoice">
+                    <div id="bill">
+                        <div class="panel-body">
+                            <div>
+                                Sync Medica
+                            </div>
+                            <div class="invoice-ribbon">
+                                <div class="ribbon-inner">DELIVERED</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 top-left">
+
+                                </div>
+                                <div class="col-sm-6 top-right">
+                                    <h3 class="marginright">INVOICE-{{ran}}</h3>
+                                    <span class="marginright">{{date}}</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-4 from">
+                                    <p class="lead marginbottom">From: {{phar.pharmacy_name}}</p>
+                                    <p>address: {{phar.pharmacy_address}}</p>
+                                    <p>contact: {{phar.pharmacy_contact}}</p>
+                                    <p>email: {{phar.pharmacy_email}}</p>
+                                </div>
+                                <div class="col-xs-4 to">
+                                    <p class="lead marginbottom">To : {{user.user_name}}</p>
+                                    <p>address: {{user.user_address}}</p>
+                                    <p>Phone: {{user.user_contact}}</p>
+                                    <p>Email: {{user.user_email}}</p>
+                                </div>
+                                <div class="col-xs-4 text-right payment-details">
+                                    <p class="lead marginbottom payment-info">Payment details</p>
+                                    <p>Date: 
+                                        {{date}}
+                                    </p>
+                                    <p>Total Amount: {{total}}</p>
+                                    <p>Account Name: {{user.user_name}}</p>
+                                </div>
+                            </div>
+                            <div class="row table-row">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:5%">#</th>
+                                            <th style="width:25%">Item</th>
+                                            <!-- <th class="text-right" style="width:15%">Market Name</th> -->
+                                            <th class="text-right" style="width:15%">Quantity</th>
+                                            <th class="text-right" style="width:15%">Unit Price</th>
+                                            <th class="text-right" style="width:15%">Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in bill %}
+                                        <tr>
+                                            <td class="text-center">{{forloop.counter}}</td>
+                                            <td>{{i.billdata.Name}}</td>
+                                            <!-- <td class="text-right">{{i.pharmacy.pharmacy_name}}</td> -->
+                                            <td class="text-right">{{i.billdata.qty}}</td>
+                                            <td class="text-right">{{i.billdata.rate}}</td>
+                                            <td class="text-right">{{i.billdata.qty|mul:i.billdata.rate}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 margintop">
+                                    <p class="lead marginbottom">THANK YOU!</p>
+                                    <!-- <button class="btn btn-success" onclick="invoice('bill')" id="invoice-print"><i
+                                            class="fa fa-print"></i> Print
+                                    </button> -->
+                                </div>
+                                <div class="col-xs-6 text-right pull-right invoice-total">
+
+                                    <p>Total : {{total}} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="invoice('bill')" id="invoice-print"><i
+                    class="fa fa-print"></i> Print
+            </button>
+            </div>
+        </div>
+    </div>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
+</body>
+
+</html>

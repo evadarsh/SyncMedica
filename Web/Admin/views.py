@@ -20,8 +20,11 @@ sd = firebase.storage()
 db = firestore.client()
 
 def homepage(request):
-    admin = db.collection("tbl_admin").document(request.session["aid"]).get().to_dict()
-    return render(request,"Admin/HomePage.html",{"admin":admin})
+    if 'aid' in request.session:
+        admin = db.collection("tbl_admin").document(request.session["aid"]).get().to_dict()
+        return render(request,"Admin/HomePage.html",{"admin":admin})
+    else:
+        return redirect("webguest:login")
 
 def registration(request):
     if request.method == "POST":

@@ -12,4 +12,9 @@ urlpatterns = [
     path('generatebill/<str:id>',views.generatebill,name="generatebill"),
     path('otpverification/<str:id>',views.otpverification,name="otpverification"),
     path('checkstatus/<str:id>',views.checkstatus,name="checkstatus"),
+    path('ajaxaddbill/',views.ajaxaddbill,name="ajaxaddbill"),
+    path('ajaxdeletebill/',views.ajaxdeletebill,name="ajaxdeletebill"),
+    path('checkqty/',views.checkqty,name="checkqty"),
+    path('ajaxsubmitbill/',views.ajaxsubmitbill,name="ajaxsubmitbill"),
+    path('viewbills/<str:id>',views.viewbills,name="viewbills"),
 ]
