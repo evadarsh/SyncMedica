@@ -97,9 +97,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'webmedicalofficer:editprofile' %}">
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'webmedicalofficer:changepassword' %}">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>Change Password</span>
               </a>
             </li>
             <li>
@@ -110,7 +110,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'webmedicalofficer:logout' %}">
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'webmedicalofficer:logout' %}" onclick="confirmLogout()">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -338,6 +338,16 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'MedicalOfficer/assets/js/main.js' %}"></script>
+  <script>
+    function confirmLogout() {
+        var confirmation = confirm("Are you sure you want to Logout?");
+        if (confirmation) {
+            window.location.href = "{% url 'webguest:login' %}"; 
+        }
+    }
+</script>
+
+
 
 </body>
 
