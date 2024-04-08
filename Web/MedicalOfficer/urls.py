@@ -4,6 +4,7 @@ app_name = 'webmedicalofficer'
 urlpatterns = [
     path('homepage/',views.homepage,name="homepage"),
     path('logout/',views.logout,name="logout"),
+    path('404error/',views.error,name="404error"),
     path('profile/',views.profile,name="profile"),
     path('editprofile/',views.editprofile,name="editprofile"),
     path('changepassword/',views.changepassword,name="changepassword"),

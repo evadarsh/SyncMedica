@@ -434,7 +434,7 @@ p {
 	font-weight: 400;
 	padding: 0.657rem 1rem;
 	letter-spacing: 0;
-	color: #444444;
+	color: #00B3A5;
 	font-family: 'Inter', sans-serif;
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
@@ -1003,7 +1003,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
 	font-family:"FontAwesome";
 	background: transparent;
 	content: "\f107";
-	color: #444444;
+	color: #00B3A5;
 	font-size: 23px;
 	left: 7px;
 }

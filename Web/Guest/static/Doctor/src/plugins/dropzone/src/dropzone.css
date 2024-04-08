@@ -431,7 +431,7 @@
 }
 .dropzone .dz-preview .dz-progress .dz-upload {
 	background: #333;
-	background: linear-gradient(to bottom, #666666, #444444);
+	background: linear-gradient(to bottom, #666666, #00B3A5);
 	position: absolute;
 	top: 0;
 	left: 0;

@@ -12,6 +12,9 @@ def homepage(request):
     medicalofficer = db.collection("tbl_medicalofficer").document(request.session["mid"]).get().to_dict()
     return render(request,"Medicalofficer/HomePage.html",{"medicalofficer":medicalofficer})
 
+def error(request):
+    return render(request,"Medicalofficer/404Error.html")
+
 def logout(request):
     if 'mid' in request.session:
         request.session.pop("mid")
