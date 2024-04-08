@@ -35,7 +35,7 @@
             <td colspan="2" align="center">
                 <a href="{% url 'webuser:editprofile' %}">Editprofile</a>
                 <a href="{% url 'webuser:changepassword' %}">ChangePassword</a>
-                <a href="{% url 'webuser:logout' %}">Logout</a>
+                <a href="{% url 'webuser:logout' %}" onclick="confirmLogout()">Logout</a>
                 {% if user.user_status == "0" %}
                 Profile is unlocked
                 <a href="{% url 'webuser:lockprofile' %}">Lock My Profile</a>
@@ -46,6 +46,14 @@
             </td>
         </tr>
     </table>
+    <script>
+        function confirmLogout() {
+            var confirmation = confirm("Are you sure you want to Logout?");
+            if (confirmation) {
+                window.location.href = "Login";
+            }
+        }
+    </script>
     {% if msg %}
     <script>
         alert("Link is sent to the {{msg}}")

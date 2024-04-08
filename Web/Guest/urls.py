@@ -9,4 +9,5 @@ urlpatterns = [
     path('login/',views.login,name="login"),
     path('ajaxplace/',views.ajaxplace,name="ajaxplace"),
     path('',views.index,name="index"),
+    path('about/',views.about,name="about"),
 ]

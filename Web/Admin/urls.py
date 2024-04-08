@@ -20,4 +20,5 @@ urlpatterns = [
     path('day/',views.day,name="day"),
     path('deleteday/<str:id>',views.deleteday,name="deleteday"),
     path('updateday/<str:id>',views.updateday,name="updateday"),
+    path('logout/',views.logout,name="logout"),
 ]

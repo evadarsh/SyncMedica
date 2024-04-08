@@ -25,7 +25,14 @@ def homepage(request):
         return render(request,"Admin/HomePage.html",{"admin":admin})
     else:
         return redirect("webguest:login")
-
+    
+def logout(request):
+    if 'aid' in request.session:
+        request.session.pop("aid")
+        return redirect("webguest:login")
+    else:
+        return redirect("webguest:login")
+    
 def registration(request):
     if request.method == "POST":
         email = request.POST.get("txt_email")
@@ -52,6 +59,8 @@ def registration(request):
         return render(request,"Admin/Registration.html")
 
 def medicalofficerregistration(request):
+    medicalofficer = db.collection("tbl_medicalofficer").stream()
+    medicalofficer_data = []
     dis = db.collection("tbl_district").stream()
     dis_data = []
     for i in dis:
@@ -80,7 +89,7 @@ def medicalofficerregistration(request):
         db.collection("tbl_medicalofficer").add(medicalofficer)
         return redirect("webadmin:medicalofficerregistration")
     else:
-        return render(request,"Admin/MedicalOfficerRegistration.html",{"district":dis_data})
+        return render(request,"Admin/MedicalOfficerRegistration.html",{"district":dis_data,"medicalofficer":medicalofficer_data})
 
 def district(request):
     dis = db.collection("tbl_district").stream()

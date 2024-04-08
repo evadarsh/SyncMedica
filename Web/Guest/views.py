@@ -26,6 +26,10 @@ db = firestore.client()
 def index(request):
     return render(request,"Guest/index.html")
 
+def about(request):
+    return render(request,"Guest/about.html")
+
+
 def userregistration(request):
     dis = db.collection("tbl_district").stream()
     dis_data = []
