@@ -1,6 +1,6 @@
 body {
   font-family: "Poppins", sans-serif;
-  color: #000000;
+  color: #00B3A5;
   background-color: #ffffff;
 }
 
@@ -384,7 +384,7 @@ a:focus {
 }
 
 .feature_section .feature_container .box .img-box {
-  border: 1px solid #000000;
+  border: 1px solid #00B3A5;
   width: 85px;
   padding: 15px;
   border-radius: 3px;
@@ -642,7 +642,7 @@ a:focus {
 }
 
 .client_section .client_container .client_detail {
-  border: 1px solid #000000;
+  border: 1px solid #00B3A5;
   padding: 25px 20px;
 }
 

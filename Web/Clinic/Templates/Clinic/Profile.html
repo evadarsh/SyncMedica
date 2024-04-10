@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-</head>
+{% extends 'Clinic/Header.html' %}
+{% load static %}
+{% block content %}
 <body>
     <h1 style="text-align: center;">Clinic Profile</h1>
     <table align="center" border="1">
@@ -39,3 +35,4 @@
     {% endif %}
 </body>
 </html>
+{% endblock content %}

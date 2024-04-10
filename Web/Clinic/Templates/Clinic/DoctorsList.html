@@ -1,0 +1,40 @@
+{% extends 'Clinic/Header.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    <h1 style="text-align: center;">Doctors</h1>
+    <table align="center" border="1">
+        <tr>
+            <td>#</td>
+            <td>Doctors</td>
+            <td align="center" colspan="2">Action</td>
+        </tr>
+        {% if doctorslist %}
+        {% for c in doctorslist %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{c.doctor.doctor_name}}</td>
+            <td>
+                {% if c.doctorslist.doctor_status == "2" %}
+                Request Approved | <a href="{% url 'webclinic:consultingdetails' c.id %}">Add Details</a>
+                {% elif c.doctorslist.doctor_status == "3" %}
+                <a href="{% url 'webclinic:consultingdetails' c.id %}">Add/Update Details</a>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'webclinic:deletedoctor' c.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+
+        <td colspan="4" align="center" style="color: red;">No Doctors found</td>
+
+
+        {% endif %}
+    </table>
+</body>
+
+</html>
+{% endblock content %}

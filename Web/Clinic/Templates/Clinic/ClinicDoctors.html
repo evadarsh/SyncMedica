@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Doctor</title>
-</head>
+{% extends 'Clinic/Header.html' %}
+{% load static %}
+{% block content %}
 <body>
     <h1 style="text-align: center;">Add Doctor</h1>
     <form action="" method="post">
@@ -34,7 +30,8 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{c.doctor.doctor_name}}</td>
-            <td>
+            <br><br>
+            <td colspan="4" align="center" style="color: red;">
                 {% if c.clinicdoctors.doctor_status == "0" %}
                 Request Pending
                 {% elif c.clinicdoctors.doctor_status == "2" %}
@@ -53,3 +50,4 @@
     </table>
 </body>
 </html>
+{% endblock content %}

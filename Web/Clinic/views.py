@@ -76,6 +76,23 @@ def clinicdoctors(request):
         return redirect("webclinic:clinicdoctors")
     else:
         return render(request,"Clinic/ClinicDoctors.html",{"clinicdoctors":clinicdoctors_data,"doctor":doctor_data})
+    
+def doctorslist(request):
+    doctor = db.collection("tbl_doctor").where("doctor_status", "==", "1").stream()
+    doctor_data = []
+    for d in doctor:
+        doctor_data.append({"doctor":d.to_dict(),"id":d.id})
+    cid = request.session["cid"] 
+    doctors_ref = db.collection('tbl_clinicdoctors')
+    query = doctors_ref.where("clinic_id", "==", cid).where("doctor_status", "==", 2)
+    doctorslist = query.stream()
+    doctorslist_data = []
+    for c in doctorslist:
+        data = c.to_dict()
+        doc = db.collection("tbl_doctor").document(data["doctor_id"]).get().to_dict()
+        doctorslist_data.append({"doctorslist":data,"id":c.id,"doctor":doc})
+    return render(request,"Clinic/DoctorsList.html",{"doctorslist":doctorslist_data,"doctor":doctor_data})
+
 
 def deletedoctor(request,id):
     db.collection("tbl_clinicdoctors").document(id).delete()
