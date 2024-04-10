@@ -1,3 +1,6 @@
+{% extends 'Pharmacy/Header.html' %}
+{% load static %}
+{% block content %}
 {% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
@@ -92,9 +95,14 @@
             </tr>
             <input type="hidden" name="txt_id" value="{{id}}" id="txt_id">
             <tr>
-                <td><input type="text" name="txt_name" id="txt_name"></td>
-                <td><input type="text" name="txt_quantity" id="txt_quantity"></td>
-                <td><input type="text"name="txt_rate" id="txt_rate"></input></td>
+                <td><select name="sel_medicine" id="sel_medicine">
+                    <option value="">...Select...</option>
+                    {% for i in medicine %}
+                    <option value="{{i.id}}">{{i.medicine.medicine_name}}</option>
+                    {% endfor %}
+                </select></td>
+                <td><input type="text" name="txt_quantity" id="txt_quantity" required></td>
+                <td><input type="text"name="txt_rate" id="txt_rate" required></input></td>
                 <td colspan="3" align="center"><button onclick="addBill()">Add</button></td>
             </tr>
         </table>
@@ -228,3 +236,4 @@
 		});
 	}
 </script>
+{% endblock content %}

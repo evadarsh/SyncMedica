@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-</head>
-<body>
-    <form action="" method="post" >
+{% extends 'Pharmacy/Header.html' %}
+{% load static %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <form action="" method="post" align="center" >
         {% csrf_token %}
         <table>
             <tr>
@@ -26,5 +22,7 @@
             </tr>
         </table>
     </form>
+</div>
 </body>
 </html>
+{% endblock content %}

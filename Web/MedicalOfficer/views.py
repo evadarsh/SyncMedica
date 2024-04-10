@@ -9,9 +9,12 @@ from django.contrib import messages
 db = firestore.client()
 
 def homepage(request):
-    medicalofficer = db.collection("tbl_medicalofficer").document(request.session["mid"]).get().to_dict()
-    return render(request,"Medicalofficer/HomePage.html",{"medicalofficer":medicalofficer})
-
+    if 'mid' in request.session:
+        medicalofficer = db.collection("tbl_medicalofficer").document(request.session["mid"]).get().to_dict()
+        return render(request,"Medicalofficer/HomePage.html",{"medicalofficer":medicalofficer})
+    else:
+        return redirect("webguest:login")
+    
 def error(request):
     return render(request,"Medicalofficer/404Error.html")
 

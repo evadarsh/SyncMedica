@@ -1,3 +1,6 @@
+{% extends 'Pharmacy/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +79,7 @@
     </div>
     <h1 style="text-align: center;">Patient List</h1>
     <div align="center">
-    <input  type="text" name="txt_patientid" id="txt_patientid" value="sm-" onkeyup="searchPatient()">
+    <input  type="search" name="txt_patientid" id="txt_patientid" value="sm-" onkeyup="searchPatient()">
     </div>
     <br>
     <br>
@@ -118,3 +121,5 @@
         });
     }
 </script>
+
+{% endblock content %}

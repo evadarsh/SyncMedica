@@ -14,8 +14,11 @@ from django.utils.html import strip_tags
 db = firestore.client()
 
 def homepage(request):
-    pharmacy = db.collection("tbl_pharmacy").document(request.session["pid"]).get().to_dict()
-    return render(request,"Pharmacy/HomePage.html",{"pharmacy":pharmacy})
+    if 'pid' in request.session:
+        pharmacy = db.collection("tbl_pharmacy").document(request.session["pid"]).get().to_dict()
+        return render(request,"Pharmacy/HomePage.html",{"pharmacy":pharmacy})
+    else:
+        return redirect("webguest:login")
 
 def profile(request):
     if 'pid' in request.session:
@@ -47,6 +50,23 @@ def changepassword(request):
         [email],
     )
     return render(request,"Pharmacy/Profile.html",{"msg":email})
+
+def medicine(request):
+    medi = db.collection("tbl_medicine").stream()
+    medi_data = []
+    for i in medi:
+        data = i.to_dict()
+        medi_data.append({"medicine":data,"id":i.id})
+    if request.method == "POST":
+        data = {"medicine_name":request.POST.get("txt_medicine")}
+        db.collection("tbl_medicine").add(data)
+        return redirect("webpharmacy:medicine")
+    else:
+        return render(request,"Pharmacy/AddMedicine.html",{"medi":medi_data})
+    
+def deletemedicine(request,id):
+    db.collection("tbl_medicine").document(id).delete()
+    return redirect("webpharmacy:medicine")
 
 def users(request):
     user_data = db.collection("tbl_user").stream()
@@ -87,6 +107,11 @@ def viewprescriptions(request,id):
     return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
 
 def generatebill(request,id):
+    medi = db.collection("tbl_medicine").stream()
+    medi_data = []
+    for i in medi:
+        data = i.to_dict()
+        medi_data.append({"medicine":data,"id":i.id})
     bill = db.collection("tbl_bill").where("pharmarcy_id", "==", request.session["pid"]).where("prescription_id", "==", id).where("status", "==", 0).order_by("time", direction=firestore.Query.DESCENDING).stream()
     bill_data = []
     total = 0
@@ -97,7 +122,7 @@ def generatebill(request,id):
     # print(total)
     count = db.collection("tbl_bill").where("pharmarcy_id", "==", request.session["pid"]).where("prescription_id", "==", id).where("status", "==", 1).get()
     # print(len(count))
-    return render(request,"Pharmacy/GenerateBill.html",{"bill":bill_data,"id":id,"total":total,"count":len(count)})
+    return render(request,"Pharmacy/GenerateBill.html",{"medicine":medi_data,"bill":bill_data,"id":id,"total":total,"count":len(count)})
 
 def ajaxaddbill(request):
     db.collection("tbl_bill").add({"Name":request.GET.get("name"),"qty":request.GET.get("qty"),"rate":request.GET.get("rate"),"pharmarcy_id":request.session["pid"],"prescription_id":request.GET.get("pre"),"status":0,"time":datetime.now()})

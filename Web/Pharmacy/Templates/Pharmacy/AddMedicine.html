@@ -1,0 +1,38 @@
+{% extends 'Pharmacy/Header.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    <h1 style="text-align: center;">Medicine</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>Medicine</td>
+                <td><input type="text" name="txt_medicine" id="" value=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    <br><br>
+    <table align="center" border="1">
+        <tr>
+            <td>#</td>
+            <td>Medicine Name</td>
+            <td align="center" colspan="2">Action</td>
+        </tr>
+        {% for i in medi %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.medicine.medicine_name}}</td>
+            <td>
+                <a href="{% url 'webpharmacy:deletemedicine' i.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>
+{% endblock content %}
