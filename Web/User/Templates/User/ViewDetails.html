@@ -92,63 +92,59 @@
     <h1 style="text-align: center;">Details</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <table align="center" border="1">
-            <tr>
-                <td>#</td>
-                <td>Day</td>
-                <td>Time</td>
-                <td>Tokens</td>
-                <td>Fee</td>
-            </tr>
+        <div class="card2">
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
+                <div style="flex: 1;">#</div>
+                <div style="flex: 2;">Day</div>
+                <div style="flex: 3;">Time</div>
+                <div style="flex: 1;">Tokens</div>
+                <div style="flex: 1;">Fee</div>
+            </div>
+
             {% for i in consultingdetails %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.daydata.day_name}}</td>
-                <td>{{i.timedata.time_from}} -- {{i.timedata.time_to}}</td>
-                <td>{{i.consultingdata.doctor_token}}</td>
-                <td>{{i.consultingdata.consulting_fee}}</td>
-                <input type="hidden" name="txt_days" class="inputField" value="{{i.daydata.day_name}}" id="txt_days">
-                <input type="hidden" name="consultingdetails_id" value="{{i.id}}">
-            </tr>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div style="flex: 1;">{{ forloop.counter }}</div>
+                <div style="flex: 2;">{{ i.daydata.day_name }}</div>
+                <div style="flex: 3;">{{ i.timedata.time_from }} -- {{ i.timedata.time_to }}</div>
+                <div style="flex: 1;">{{ i.consultingdata.doctor_token }}</div>
+                <div style="flex: 1;">{{ i.consultingdata.consulting_fee }}</div>
+                <input type="hidden" name="txt_days" class="inputField" value="{{ i.daydata.day_name }}" id="txt_days">
+                <input type="hidden" name="consultingdetails_id" value="{{ i.id }}">
+            </div>
             {% endfor %}
-        </table>
+        </div>
+
         <br><br>
-        <table align="center" border="1">
-            <tr>
-                <td>Date</td>
-                <td><input type="date" name="txt_date" id="datePicker" onchange="checkDayValidity(),getBooking()" ></td>
-            <tr>
-            <tr>
-                <td>Time</td>
-                <td>
-                    <select name="sel_time" id="sel_time" onchange="getBooking()">
-                        <option value="">...Select...</option>
-                        {% for i in consultingdetails %}
-                        <option value="{{i.id}}">{{i.timedata.time_from}} -- {{i.timedata.time_to}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="TAKE APPOINTMENT">
-                </td>
-            </tr>
-            </tr>
-        </table>
+        <div class="main-card2" id="appointment-form">
+            <div class="card2">
+                <label for="datePicker">Date:</label>
+                <input type="date" name="txt_date" id="datePicker" onchange="checkDayValidity(),getBooking()">
+                <label for="sel_time">Time:</label>
+                <select name="sel_time" id="sel_time" onchange="getBooking()">
+                    <option value="">...Select...</option>
+                    {% for i in consultingdetails %}
+                    <option value="{{i.id}}">{{i.timedata.time_from}} -- {{i.timedata.time_to}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="TAKE APPOINTMENT" style="display: inline-block; background-color: #00C1E9; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">
+            </div>
+        </div>
+
+
+    </form>
 </body>
 
 </html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-     $("#overlay").hide();
-     $("#css3-spinner-svg-pulse-wrapper").hide();
+    $("#overlay").hide();
+    $("#css3-spinner-svg-pulse-wrapper").hide();
 
     function getBooking() {
         var date = document.getElementById("datePicker").value
         var conid = document.getElementById("sel_time").value
-        if( (conid != "") && (datePicker != "")) {
+        if ((conid != "") && (datePicker != "")) {
             var ur = "{% url 'webuser:ajaxbooking' %}"
             // console.log('hi');
             // console.log(conid);
@@ -165,8 +161,8 @@
                         document.getElementById("datePicker").value = ""
                         document.getElementById("sel_time").value = ""
                     }
-                        $("#overlay").hide();
-                        $("#css3-spinner-svg-pulse-wrapper").hide();
+                    $("#overlay").hide();
+                    $("#css3-spinner-svg-pulse-wrapper").hide();
 
 
                     // }
@@ -179,7 +175,7 @@
 
 <script>
     function checkDayValidity(days) {
-        
+
         let ArrData = [];
         var datePicker = document.getElementById("datePicker");
         var selectedDate = new Date(datePicker.value);

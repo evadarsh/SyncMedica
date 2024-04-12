@@ -8,6 +8,7 @@ urlpatterns = [
      path('changepassword/',views.changepassword,name="changepassword"),
      path('viewdoctors/<str:id>',views.viewdoctors,name="viewdoctors"),
      path('viewdetails/<str:id>',views.viewdetails,name="viewdetails"),
+     path('viewappointments/',views.viewappointments,name="viewappointments"),
      path('searchclinic/',views.searchclinic,name="searchclinic"),
      path('lockprofile/',views.lockprofile,name="lockprofile"),
      path('unlockprofile/',views.unlockprofile,name="unlockprofile"),

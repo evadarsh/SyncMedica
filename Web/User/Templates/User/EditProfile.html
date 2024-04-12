@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-</head>
-<body>
-    <form action="" method="post" >
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<div style="margin: 100px auto; max-width: 400px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 20px;">
+    <form action="" method="post">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="txt_name" id="" value="{{user.user_name}}"></td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td><input type="text" name="txt_contact" id="" value="{{user.user_contact}}"></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td><input type="text"name="txt_address" id="" value="{{user.user_address}}"></input></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Update"></td>
-            </tr>
-        </table>
+        <div style="text-align: center;">
+            <div>
+                <label for="txt_name" style="color: black;">Name</label>
+                <input type="text" name="txt_name" id="" value="{{user.user_name}}">
+            </div>
+            <div>
+                <label for="txt_contact" style="color: black;">Contact</label>
+                <input type="text" name="txt_contact" id="" value="{{user.user_contact}}">
+            </div>
+            <div>
+                <label for="txt_address" style="color: black;">Address</label>
+                <input type="text" name="txt_address" id="" value="{{user.user_address}}">
+            </div>
+            <div style="margin-top: 10px;">
+                <input type="submit" value="Update">
+            </div>
+        </div>
     </form>
-</body>
-</html>
+</div>
+{% endblock content %}
+

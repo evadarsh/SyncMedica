@@ -10,31 +10,30 @@
     <title>Search Clinic</title>
 </head>
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-    <table align="center">
-        <tr>
-            <td>District</td>
-            <td>
-                <select name="sel_district" id="sel_district">
-                    <option value="">...Select...</option>
-                    {% for i in dis %}
-                    <option value="{{i.id}}">{{i.district.district_name}}</option>
-                    {% endfor %}
-                </select>
-            </td>
-            <td>Place</td>
-            <td>
-                <select name="sel_place" id="sel_place">
-                    <option value="">...Select...</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Search" align="center"></td>
-        </tr>
-    </form>
-    </table>
+    <div style="margin: 100px;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div style="text-align: center;">
+                <div>
+                    <label for="sel_district" style="color: black;">District</label>
+                    <select name="sel_district" id="sel_district">
+                        <option value="">...Select...</option>
+                        {% for i in dis %}
+                        <option value="{{i.id}}">{{i.district.district_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="sel_place" style="color: black;">Place</label>
+                    <select name="sel_place" id="sel_place">
+                        <option value="">...Select...</option>
+                    </select>
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="submit" value="Search" style="text-align: center;">
+                </div>
+            </div>
+        </form>
+    </div>
+    
     <div class="main-card"id="result" align="center">
         {% for i in clinic %}
         <div class="card">

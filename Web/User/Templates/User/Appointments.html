@@ -1,0 +1,52 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .main-card {
+        display: flex;
+        justify-content: center;
+        /* Centers items horizontally */
+        align-items: center;
+        /* Centers items vertically */
+        flex-wrap: wrap;
+        /* Allows cards to wrap to the next line */
+    }
+
+    .card {
+        width: 300px;
+        padding: 20px;
+        margin: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    .card p {
+        margin: 10px 0;
+    }
+</style>
+</head>
+
+<body>
+    <div class="main-card">
+        {% for appointment in appointments %}
+        <div class="card">
+            <h2>{{ appointment.doctor_name }}</h2>
+            <p><strong>Clinic:</strong> {{ appointment.clinic_name }}</p> 
+            <p><strong>Date:</strong> {{ appointment.appointment_date }}</p>
+            <p><strong>Time:</strong> {{ appointment.appointment_time }}</p>
+            <p><strong>Token:</strong> {{ appointment.token }}</p>
+            <p><strong>Status:</strong> {{ appointment.status }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
+{% endblock content %}

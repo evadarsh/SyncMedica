@@ -12,20 +12,33 @@ import pytz
 db = firestore.client()
 
 def homepage(request):
+    if 'uid' in request.session:
     # Get the current time in UTC
-    current_time_utc = timezone.now()
-    print(current_time_utc)
+        current_time_utc = timezone.now()
+        print(current_time_utc)
 
-    # Get the Indian time zone
-    indian_timezone = pytz.timezone('Asia/Kolkata')
+        # Get the Indian time zone
+        indian_timezone = pytz.timezone('Asia/Kolkata')
 
-    # Convert the current time to the Indian time zone
-    current_time_indian = current_time_utc.astimezone(indian_timezone)
+        # Convert the current time to the Indian time zone
+        current_time_indian = current_time_utc.astimezone(indian_timezone)
 
-    # Print the current time in the Indian time zone
-    print("Current Time (Indian):", current_time_indian)
-    user = db.collection("tbl_user").document(request.session["uid"]).get().to_dict()
-    return render(request,"User/HomePage.html",{"user":user})
+        # Print the current time in the Indian time zone
+        print("Current Time (Indian):", current_time_indian)
+
+        # Fetch user data
+        user = db.collection("tbl_user").document(request.session["uid"]).get().to_dict()
+
+        # Fetch notifications
+        notifications_ref = db.collection("tbl_notification").stream()
+        notifications_data = []
+        for notification in notifications_ref:
+            data = notification.to_dict()
+            notifications_data.append({"notification": data, "id": notification.id})
+
+        return render(request, "User/HomePage.html", {"user": user, "notifications": notifications_data})
+    else:
+        return redirect("webguest:login")
 
 def profile(request):
     if 'uid' in request.session:
@@ -88,52 +101,84 @@ def viewdoctors(request,id):
         return redirect("webguest:login")
 
 def viewdetails(request,id):
-    time_data = db.collection("tbl_time").stream()
-    tdata = []
-    for t in time_data:
-        tdata.append({"time":t.to_dict(),"id":t.id})
-    day_data = db.collection("tbl_day").stream()
-    ddata = []
-    for d in day_data:
-        ddata.append({"day":d.to_dict(),"id":d.id})
-    consultingdetails_data = db.collection("tbl_consultingdetails").where("clinicdoctors_id", "==", id).stream()
-    cdata = []
-    for c in consultingdetails_data:
-        data = c.to_dict()
-        time = db.collection("tbl_time").document(data["time_id"]).get().to_dict()
-        day = db.collection("tbl_day").document(data["day_id"]).get().to_dict()
-        cdata.append({"consultingdata":c.to_dict(),"id":c.id,"timedata":time,"daydata":day})
-    if request.method == "POST":
-        datas =db.collection("tbl_appointments").where("appointment_date", "==", request.POST.get("txt_date")).where("appointment_time", "==", request.POST.get("sel_time")).get()
-        cou = int(len(datas))
-        token = cou + 1
-        consultingdoctors = db.collection("tbl_consultingdetails").where("clinicdoctors_id", "==",id).stream()
-        doctor_data =db.collection("tbl_clinicdoctors").document(id).get().to_dict()
-        doctor_id = doctor_data["doctor_id"]
-        doctor_name = db.collection("tbl_doctor").document(doctor_id).get().to_dict()
-        # print(doctor_name["doctor_name"])
-        dname = str(doctor_name["doctor_name"])
-        # print(type(dname))
-        user = db.collection("tbl_user").document(request.session["uid"]).get().to_dict()
-        email = user["user_email"]
-        name = user["user_name"]
-        days = request.POST.get("txt_date")
-        con = db.collection("tbl_consultingdetails").document(request.POST.get("sel_time")).get().to_dict()
-        times  = db.collection("tbl_time").document(con["time_id"]).get().to_dict()
-        # print(times["time_from"] ,times["time_to"])
-        send_mail(
-            'Appointment Successfull', #subject
-            "\rHello"+ str(name) +"\r\nYour appointment for " + dname +".\n for the date and time " + str(days) + "," + str(times["time_from"]) + "to" + str(times["time_to"]) +"Your Token number is"+ str(token) + "\r\n Thanks. \r\n Sync Medica.",#body
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
-        datedata = date.today()
-        data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_time":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0","token":token}
-        db.collection("tbl_appointments").add(data)
-        return redirect("webuser:homepage")
+    if 'uid' in request.session:
+        time_data = db.collection("tbl_time").stream()
+        tdata = []
+        for t in time_data:
+            tdata.append({"time":t.to_dict(),"id":t.id})
+        day_data = db.collection("tbl_day").stream()
+        ddata = []
+        for d in day_data:
+            ddata.append({"day":d.to_dict(),"id":d.id})
+        consultingdetails_data = db.collection("tbl_consultingdetails").where("clinicdoctors_id", "==", id).stream()
+        cdata = []
+        for c in consultingdetails_data:
+            data = c.to_dict()
+            time = db.collection("tbl_time").document(data["time_id"]).get().to_dict()
+            day = db.collection("tbl_day").document(data["day_id"]).get().to_dict()
+            cdata.append({"consultingdata":c.to_dict(),"id":c.id,"timedata":time,"daydata":day})
+        if request.method == "POST":
+            datas =db.collection("tbl_appointments").where("appointment_date", "==", request.POST.get("txt_date")).where("appointment_time", "==", request.POST.get("sel_time")).get()
+            cou = int(len(datas))
+            token = cou + 1
+            consultingdoctors = db.collection("tbl_consultingdetails").where("clinicdoctors_id", "==",id).stream()
+            doctor_data =db.collection("tbl_clinicdoctors").document(id).get().to_dict()
+            doctor_id = doctor_data["doctor_id"]
+            doctor_name = db.collection("tbl_doctor").document(doctor_id).get().to_dict()
+            # print(doctor_name["doctor_name"])
+            dname = str(doctor_name["doctor_name"])
+            # print(type(dname))
+            user = db.collection("tbl_user").document(request.session["uid"]).get().to_dict()
+            email = user["user_email"]
+            name = user["user_name"]
+            days = request.POST.get("txt_date")
+            con = db.collection("tbl_consultingdetails").document(request.POST.get("sel_time")).get().to_dict()
+            times  = db.collection("tbl_time").document(con["time_id"]).get().to_dict()
+            # print(times["time_from"] ,times["time_to"])
+            send_mail(
+                'Appointment Successfull', #subject
+                "\rHello" + str(name) +"\r\nYour appointment for " + dname + ".\n\n for the date and time " + str(days) + "," + str(times["time_from"]) + "to" + str(times["time_to"]) +"Your Token number is" + str(token) + "\r\n\n Thanks. \r\n Sync Medica.",#body
+                settings.EMAIL_HOST_USER,
+                [email]
+            )
+            datedata = date.today()
+            data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_time":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0","token":token}
+            db.collection("tbl_appointments").add(data)
+            return redirect("webuser:homepage")
+        else:
+            return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
     else:
-        return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
+        return redirect("webguest:login")
     
+def viewappointments(request):
+    if 'uid' in request.session:
+        appointments_data = db.collection("tbl_appointments").where("user_id", "==", request.session["uid"]).stream()
+        appointments = []
+        
+        for appointment in appointments_data:
+            data = appointment.to_dict()
+            consulting_details = db.collection("tbl_consultingdetails").document(data["consultingdetails_id"]).get().to_dict()
+            time_data = db.collection("tbl_time").document(consulting_details["time_id"]).get().to_dict()
+            doctor_data = db.collection("tbl_clinicdoctors").document(consulting_details["clinicdoctors_id"]).get().to_dict()
+            doctor_id = doctor_data["doctor_id"]
+            doctor_name = db.collection("tbl_doctor").document(doctor_id).get().to_dict()["doctor_name"]
+            clinic_id = doctor_data["clinic_id"]
+            clinic_name = db.collection("tbl_clinic").document(clinic_id).get().to_dict()["clinic_name"]
+            appointment_info = {
+                "doctor_name": doctor_name,
+                "clinic_name": clinic_name,  # Add clinic name to appointment details
+                "appointment_date": data["appointment_date"],
+                "appointment_time": f"{time_data['time_from']} - {time_data['time_to']}",
+                "token": data["token"],
+                "status": "Pending" if data["appointment_status"] == "0" else "Confirmed"
+            }
+            appointments.append(appointment_info)
+        
+        return render(request, "User/Appointments.html", {"appointments": appointments})
+    else:
+        return redirect("webguest:login")
+
+
 def logout(request):
     if 'uid' in request.session:
         request.session.pop("uid")

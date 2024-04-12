@@ -1,16 +1,10 @@
 {% extends 'User/Header.html' %}
 {% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-</head>
-<body>
-    <h1 style="text-align: center;">User Profile</h1>
-    <table align="center" border="1">
+<div
+    style="margin: 100px auto; max-width: 600px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 20px;">
+    <h1 style="text-align: center;">My Profile</h1>
+    <table style="margin: 0 auto;" border="1">
         <tr>
             <td>Patient Id</td>
             <td>{{user.patient_id}}</td>
@@ -28,22 +22,38 @@
             <td>{{user.user_email}}</td>
         </tr>
         <tr>
-            <td>Adress</td>
+            <td>Address</td>
             <td>{{user.user_address}}</td>
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <a href="{% url 'webuser:editprofile' %}">Editprofile</a>
-                <a href="{% url 'webuser:changepassword' %}">ChangePassword</a>
-                <a href="{% url 'webuser:logout' %}" onclick="confirmLogout()">Logout</a>
+                <div style="margin-bottom: 10px;">
+                    <a href="{% url 'webuser:editprofile' %}"
+                        style="display: inline-block; background-color: #4CAF50; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Edit
+                        Profile</a>
+                    <a href="{% url 'webuser:changepassword' %}"
+                        style="display: inline-block; background-color: #008CBA; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Change
+                        Password</a>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <a href="{% url 'webuser:logout' %}" onclick="confirmLogout()"
+                        style="display: inline-block; background-color: #f44336; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Logout</a>
+                </div>
                 {% if user.user_status == "0" %}
-                Profile is unlocked
-                <a href="{% url 'webuser:lockprofile' %}">Lock My Profile</a>
+                <div style="margin-bottom: 10px; color: black;">Profile is unlocked
+                    <a href="{% url 'webuser:lockprofile' %}"
+                        style="display: inline-block; background-color: #f44336; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Lock
+                        My Profile</a>
+                </div>
                 {% else %}
-                Profile is locked
-                <a href="{% url 'webuser:unlockprofile' %}">Unlock My Profile</a>
+                <div style="margin-bottom: 10px; color: black;">Profile is locked
+                    <a href="{% url 'webuser:unlockprofile' %}"
+                        style="display: inline-block; background-color: #4CAF50; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Unlock
+                        My Profile</a>
+                </div>
                 {% endif %}
             </td>
+
         </tr>
     </table>
     <script>
@@ -60,6 +70,5 @@
         window.location = "{% url 'webuser:homepage' %}"
     </script>
     {% endif %}
-</body>
-</html>
+</div>
 {% endblock content %}
