@@ -4,6 +4,7 @@ app_name = 'webdoctor'
 urlpatterns = [
     path('homepage/',views.homepage,name="homepage"),
     path('profile/',views.profile,name="profile"),
+    path('logout/',views.logout,name="logout"),
     path('editprofile/',views.editprofile,name="editprofile"),
     path('changepassword/',views.changepassword,name="changepassword"),
     path('clinicrequests/',views.clinicrequests,name="clinicrequests"),

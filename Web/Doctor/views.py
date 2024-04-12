@@ -12,6 +12,13 @@ def homepage(request):
     doctor = db.collection("tbl_doctor").document(request.session["did"]).get().to_dict()
     return render(request,"Doctor/HomePage.html",{"doctor":doctor})
 
+def logout(request):
+    if 'did' in request.session:
+        request.session.pop("did")
+        return redirect("webguest:login")
+    else:
+        return redirect("webguest:login")
+
 def profile(request):
     if 'did' in request.session:
         doctor = db.collection("tbl_doctor").document(request.session["did"]).get().to_dict()

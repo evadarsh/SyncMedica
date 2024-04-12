@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8" />
+	<title>Doctor Homepage</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'Doctor/vendors/images/apple-touch-icon.png' %}" />
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'Doctor/vendors/images/favicon-32x32.png' %}" />
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'Doctor/vendors/images/favicon-16x16.png' %}" />
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet" />
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/core.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/icon-font.min.css' %}" />
+	<link rel="stylesheet" type="text/css"
+		href="{% static 'Doctor/src/plugins/datatables/css/dataTables.bootstrap4.min.css' %}" />
+	<link rel="stylesheet" type="text/css"
+		href="{% static 'Doctor/src/plugins/datatables/css/responsive.bootstrap4.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/style.css' %}" />
+</head>
+
+<body>
+	<div class="header">
+		<div class="header-left">
+
+		</div>
+		<div class="header-right">
+			<div class="user-info-dropdown">
+				<div class="dropdown">
+					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-icon">
+							<img src="{{ doctor.doctor_photo }}" alt="Doctor Photo"
+								style="max-width: 100%; height: auto;">
+						</span>
+
+
+						<span class="user-name">{{doctor.doctor_name}}</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+						<a class="dropdown-item" href="{% url 'webdoctor:profile' %}"><i class="dw dw-user1"></i>
+							Profile</a>
+						<a class="dropdown-item" href="{% url 'webdoctor:editprofile' %}"><i
+								class="dw dw-settings2"></i> Setting</a>
+						<a class="dropdown-item" href="{% url 'webdoctor:changepassword' %}"><i class="dw dw-help"></i>
+							Change Password</a>
+						<a class="dropdown-item" href="{% url 'webdoctor:logout' %}"><i class="dw dw-logout"></i> Log
+							Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="left-side-bar">
+		<div class="brand-logo">
+			<a href="{% url 'webdoctor:logout' %}">
+				<img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image"
+					style="width: 600px; height: auto; background-color: aliceblue;">
+			</a>
+			<div class="close-sidebar" data-toggle="left-sidebar-close">
+				<i class="ion-close-round"></i>
+			</div>
+		</div>
+		<div class="menu-block customscroll">
+			<div class="sidebar-menu">
+				<ul id="accordion-menu">
+					<li>
+						<a href="{% url 'webdoctor:clinicrequests' %}" class="dropdown-toggle no-arrow">
+							<span class="micon bi bi-file-earmark-text"></span><span class="mtext">Clinic
+								Requests</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'webdoctor:consultingdeatils' %}" class="dropdown-toggle no-arrow">
+							<span class="micon bi bi-diagram-3"></span><span class="mtext">Consulting Details</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <div class="footer-wrap pd-20 mb-20 card-box">
+        Copyright © 2024 SyncMedica
+    </div>
+</div>
+</div>
+<script src="{% static 'Doctor/vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'Doctor/vendors/scripts/process.js' %}"></script>
+<script src="{% static 'Doctor/vendors/scripts/layout-settings.js' %}"></script>
+<script src="{% static 'Doctor/src/plugins/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'Doctor/vendors/scripts/core.js' %}"></script>
+<script src="{% static 'Doctor/src/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'Doctor/src/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'Doctor/src/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'Doctor/src/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'Doctor/vendors/scripts/dashboard3.js' %}"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
+    style="display: none; visibility: hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+
+</html>
+            
