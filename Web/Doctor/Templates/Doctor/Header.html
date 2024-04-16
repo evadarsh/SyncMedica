@@ -1,120 +1,160 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8" />
-	<title>Doctor Homepage</title>
+    <meta charset="utf-8">
+    <title>Doctor HomePage</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-	<!-- Site favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'Doctor/vendors/images/apple-touch-icon.png' %}" />
-	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'Doctor/vendors/images/favicon-32x32.png' %}" />
-	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'Doctor/vendors/images/favicon-16x16.png' %}" />
+    <!-- Favicon -->
+    <link href="{% static 'Doctor/img/favicon.ico' %}" rel="icon">
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- Google WebdFonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+        rel="stylesheet">
 
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-		rel="stylesheet" />
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/core.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/icon-font.min.css' %}" />
-	<link rel="stylesheet" type="text/css"
-		href="{% static 'Doctor/src/plugins/datatables/css/dataTables.bootstrap4.min.css' %}" />
-	<link rel="stylesheet" type="text/css"
-		href="{% static 'Doctor/src/plugins/datatables/css/responsive.bootstrap4.min.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'Doctor/vendors/styles/style.css' %}" />
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'Doctor/lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'Doctor/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'Doctor/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'Doctor/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'Doctor/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
-	<div class="header">
-		<div class="header-left">
-
-		</div>
-		<div class="header-right">
-			<div class="user-info-dropdown">
-				<div class="dropdown">
-					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-						<span class="user-icon">
-							<img src="{{ doctor.doctor_photo }}" alt="Doctor Photo"
-								style="max-width: 100%; height: auto;">
-						</span>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
 
 
-						<span class="user-name">{{doctor.doctor_name}}</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="{% url 'webdoctor:profile' %}"><i class="dw dw-user1"></i>
-							Profile</a>
-						<a class="dropdown-item" href="{% url 'webdoctor:editprofile' %}"><i
-								class="dw dw-settings2"></i> Setting</a>
-						<a class="dropdown-item" href="{% url 'webdoctor:changepassword' %}"><i class="dw dw-help"></i>
-							Change Password</a>
-						<a class="dropdown-item" href="{% url 'webdoctor:logout' %}"><i class="dw dw-logout"></i> Log
-							Out</a>
-					</div>
-				</div>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>Kerala,India</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+91 7510849660</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image"
+                style="width: 300px; height: auto;">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+			<div class="navbar-nav ms-auto p-4 p-lg-0">
+				<a href="{% url 'webdoctor:profile' %}" class="nav-item nav-link">My Profile</a>
+				<a href="{% url 'webdoctor:clinicrequests' %}" class="nav-item nav-link">Clinic Requests</a>
+
 			</div>
+			<a href="{% url 'webdoctor:consultingdeatils' %}"
+				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">APPOINTMENTS<i
+					class="fa fa-arrow-right ms-3"></i></a>
 		</div>
-	</div>
+    </nav>
 
-
-	<div class="left-side-bar">
-		<div class="brand-logo">
-			<a href="{% url 'webdoctor:logout' %}">
-				<img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image"
-					style="width: 600px; height: auto; background-color: aliceblue;">
-			</a>
-			<div class="close-sidebar" data-toggle="left-sidebar-close">
-				<i class="ion-close-round"></i>
-			</div>
-		</div>
-		<div class="menu-block customscroll">
-			<div class="sidebar-menu">
-				<ul id="accordion-menu">
-					<li>
-						<a href="{% url 'webdoctor:clinicrequests' %}" class="dropdown-toggle no-arrow">
-							<span class="micon bi bi-file-earmark-text"></span><span class="mtext">Clinic
-								Requests</span>
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'webdoctor:consultingdeatils' %}" class="dropdown-toggle no-arrow">
-							<span class="micon bi bi-diagram-3"></span><span class="mtext">Consulting Details</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <!-- Navbar End -->
 
     {% block content %}
 
     {% endblock content %}
 
-    <div class="footer-wrap pd-20 mb-20 card-box">
-        Copyright © 2024 SyncMedica
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4">Address</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Kerala,India</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 75108496600</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>syncmedica@gmail.com</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                </div>
+                
+            </div>
+        </div>
     </div>
-</div>
-</div>
-<script src="{% static 'Doctor/vendors/scripts/script.min.js' %}"></script>
-<script src="{% static 'Doctor/vendors/scripts/process.js' %}"></script>
-<script src="{% static 'Doctor/vendors/scripts/layout-settings.js' %}"></script>
-<script src="{% static 'Doctor/src/plugins/apexcharts/apexcharts.min.js' %}"></script>
-<script src="{% static 'Doctor/vendors/scripts/core.js' %}"></script>
-<script src="{% static 'Doctor/src/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'Doctor/src/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
-<script src="{% static 'Doctor/src/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
-<script src="{% static 'Doctor/src/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script>
-<script src="{% static 'Doctor/vendors/scripts/dashboard3.js' %}"></script>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
-    style="display: none; visibility: hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">SyncMedica</a>, All Right Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a class="border-bottom" href="https://htmlcodex.com">SyncMedica</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'Doctor/lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'Doctor/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'Doctor/js/main.js' %}"></script>
 </body>
 
 </html>
-            

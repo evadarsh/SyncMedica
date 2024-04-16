@@ -1,0 +1,36 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+    <table align="center" border="1">
+        <tr>
+            <td>Name</td>
+            <td>{{doctor.doctor_name}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{doctor.doctor_contact}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{doctor.doctor_email}}</td>
+        </tr>
+        <tr>
+            <td>Adress</td>
+            <td>{{doctor.doctor_address}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a href="{% url 'webdoctor:editprofile' %}">Editprofile</a>
+                <a href="{% url 'webdoctor:changepassword' %}">ChangePassword</a>
+            </td>
+        </tr>
+    </table>
+    {% if msg %}
+    <script>
+        alert("Link Is sent to the {{msg}}")
+        window.location = "{% url 'webdoctor:homepage' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

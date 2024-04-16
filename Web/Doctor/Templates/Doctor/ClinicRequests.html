@@ -1,34 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinic Requests</title>
-</head>
+{% extends 'Doctor/Header.html' %}
+{% load static %}
+{% block content %}
 <body>
     {% if clinicdoctors %}
     <h1 style="text-align: center;">Clinic Requests</h1>
     <form action="" method="post">
-        <table align="center" border="1">
-            <tr>
-                <td>#</td>
-                <td>Clinic</td>
-                <td align="center" colspan="2">Action</td>
-            </tr>
+        <div class="card2">
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
+                <div>#</div>
+                <div style="flex: 1;">Clinic</div>
+                <div style="flex: 2;">Action</div>
+            </div>
             {% for i in clinicdoctors %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.clinic.clinic_name}}</td>
-                <td>
+            <div style="margin-bottom: 5px;">
+                <span>{{forloop.counter}}</span>
+                <span style="margin-left: 20px;">{{i.clinic.clinic_name}}</span>
+                <span style="margin-left: 20px;">
                     <a href="{% url 'webdoctor:rejectclinic' i.id %}">Reject</a>
-                </td>
-                <td>
+                </span>
+                <span style="margin-left: 20px;">
                     <a href="{% url 'webdoctor:updateclinic' i.id %}">Approve</a>
-                </td>
-            </tr>
+                </span>
+            </div>
             {% endfor %}
-        </table>
-    </form>
+        </div>
+    </form>    
     {% else %}
     <h1 style="color: red;" align="center">No More Request</h1>
     {% endif %}
@@ -40,3 +36,4 @@
     {% endif %}
 </body>
 </html>
+{% endblock content %}

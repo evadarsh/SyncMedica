@@ -166,7 +166,7 @@ def viewappointments(request):
             clinic_name = db.collection("tbl_clinic").document(clinic_id).get().to_dict()["clinic_name"]
             appointment_info = {
                 "doctor_name": doctor_name,
-                "clinic_name": clinic_name,  # Add clinic name to appointment details
+                "clinic_name": clinic_name,  
                 "appointment_date": data["appointment_date"],
                 "appointment_time": f"{time_data['time_from']} - {time_data['time_to']}",
                 "token": data["token"],

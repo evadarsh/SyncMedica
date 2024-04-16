@@ -1,33 +1,57 @@
-
-    <table align="center" border="1">
+{% extends 'Doctor/Header.html' %}
+{% load static %}
+{% block content %}
+<div
+    style="margin: 100px auto; max-width: 600px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 20px;">
+    <h1 style="text-align: center;">My Profile</h1>
+    <table style="margin: 0 auto;" border="1">
         <tr>
-            <td>Name</td>
-            <td>{{doctor.doctor_name}}</td>
+            <td style="margin-bottom: 10px; color: black;"><strong>Name</strong>&nbsp; </td>
+            <td style="margin-bottom: 10px; color: black;">{{doctor.doctor_name}}</td>
         </tr>
         <tr>
-            <td>Contact</td>
-            <td>{{doctor.doctor_contact}}</td>
+            <td style="margin-bottom: 10px; color: black;"><strong>Contact</strong>&nbsp; </td>
+            <td style="margin-bottom: 10px; color: black;">{{doctor.doctor_contact}}</td>
         </tr>
         <tr>
-            <td>Email</td>
-            <td>{{doctor.doctor_email}}</td>
+            <td style="margin-bottom: 10px; color: black;"><strong>Email</strong></td>
+            <td style="margin-bottom: 10px; color: black;">{{doctor.doctor_email}}</td>
         </tr>
         <tr>
-            <td>Adress</td>
-            <td>{{doctor.doctor_address}}</td>
+            <td style="margin-bottom: 10px; color: black;"><strong>Address</strong></td>
+            <td style="margin-bottom: 10px; color: black;">{{doctor.doctor_address}}</td>
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <a href="{% url 'webdoctor:editprofile' %}">Editprofile</a>
-                <a href="{% url 'webdoctor:changepassword' %}">ChangePassword</a>
+                <div style="margin-bottom: 10px;">
+                    <a href="{% url 'webdoctor:editprofile' %}"
+                        style="display: inline-block; background-color: #4CAF50; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Edit
+                        Profile</a>
+                    <a href="{% url 'webdoctor:changepassword' %}"
+                        style="display: inline-block; background-color: #008CBA; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Change
+                        Password</a>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <a href="{% url 'webdoctor:logout' %}" onclick="confirmLogout()"
+                        style="display: inline-block; background-color: #f44336; color: white; padding: 8px 16px; text-align: center; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px;">Logout</a>
+                </div>
             </td>
+
         </tr>
     </table>
+    <script>
+        function confirmLogout() {
+            var confirmation = confirm("Are you sure you want to Logout?");
+            if (confirmation) {
+                window.location.href = "Login";
+            }
+        }
+    </script>
     {% if msg %}
     <script>
-        alert("Link Is sent to the {{msg}}")
+        alert("Link is sent to the {{msg}}")
         window.location = "{% url 'webdoctor:homepage' %}"
     </script>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock content %}

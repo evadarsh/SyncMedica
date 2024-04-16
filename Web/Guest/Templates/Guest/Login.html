@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +21,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #f0f0f0; /* Light background color */
+            background: #f0f0f0;
+            /* Light background color */
         }
 
         .container {
@@ -35,24 +37,32 @@
             align-items: center;
             flex-direction: column;
             padding: 40px;
-        
+
         }
 
         @keyframes heartbeat {
-            0%, 20% {
+
+            0%,
+            20% {
                 transform: scaleY(0.8);
             }
+
             10% {
                 transform: scaleY(1.4);
             }
-            30%, 50%, 70%, 90% {
+
+            30%,
+            50%,
+            70%,
+            90% {
                 transform: scaleY(0.8);
             }
         }
 
         h2 {
             font-size: 2em;
-            color: #333; /* Dark text color */
+            color: #333;
+            /* Dark text color */
             margin-bottom: 20px;
         }
 
@@ -64,18 +74,21 @@
         .input-box input {
             width: 100%;
             height: 50px;
-            background: #f5f5f5; /* Light input background color */
+            background: #f5f5f5;
+            /* Light input background color */
             border: none;
             outline: none;
             border-radius: 8px;
             font-size: 1em;
-            color: #333; /* Dark text color */
+            color: #333;
+            /* Dark text color */
             padding: 0 20px;
             transition: background 0.3s;
         }
 
         .input-box input:focus {
-            background: #e0e0e0; /* Darker background color on focus */
+            background: #e0e0e0;
+            /* Darker background color on focus */
         }
 
         .input-box label {
@@ -84,7 +97,8 @@
             left: 20px;
             transform: translateY(-50%);
             font-size: 1em;
-            color: #666; /* Placeholder text color */
+            color: #666;
+            /* Placeholder text color */
             pointer-events: none;
             transition: .5s ease;
         }
@@ -93,7 +107,8 @@
         .input-box input:valid~label {
             top: 1px;
             font-size: .8em;
-            color: #ff6f61; /* Highlight color for labels */
+            color: #00B3A5;
+            /* Highlight color for labels */
         }
 
         .forgot-pass {
@@ -103,7 +118,8 @@
 
         .forgot-pass a {
             font-size: .85em;
-            color: #666; /* Link color */
+            color: #666;
+            /* Link color */
             text-decoration: none;
         }
 
@@ -114,19 +130,22 @@
         .btn {
             width: 100%;
             height: 45px;
-            background: #ff6f61; /* Button background color */
+            background: #00B3A5;
+            /* Button background color */
             border: none;
             outline: none;
             border-radius: 40px;
             cursor: pointer;
             font-size: 1em;
-            color: #fff; /* Button text color */
+            color: #fff;
+            /* Button text color */
             font-weight: 600;
             transition: background 0.3s;
         }
 
         .btn:hover {
-            background: #ed465e; /* Button hover background color */
+            background: #00C1E9;
+            /* Button hover background color */
         }
 
         .signup-link {
@@ -136,13 +155,101 @@
 
         .signup-link a {
             font-size: 1em;
-            color: #ff6f61; /* Signup link color */
+            color: #00B3A5;
+            /* Signup link color */
             text-decoration: none;
             font-weight: 600;
         }
 
         .signup-link a:hover {
             text-decoration: underline;
+        }
+
+        /* Your existing CSS styles */
+        .modal {
+            display: none;
+            position: fixed;
+            border-radius: 10px;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            border-radius: 10px;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .card {
+            /* Card styles */
+            width: 200px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card a {
+            /* Link styles */
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #00C1E9;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .card a:hover {
+            background-color: #00B3A5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 1px 2px;
+            background-color: #00C1E9;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
         }
     </style>
     <script type="text/javascript">
@@ -151,8 +258,11 @@
         window.onunload = function () { null };
     </script>
 </head>
+
 <body>
     <div class="container">
+        <a href="{% url 'webguest:index' %}" class="button">Home</a>
+        <br>
         <h2>Login</h2>
         <form action="" method="post">
             {% csrf_token %}
@@ -161,18 +271,55 @@
                 <label>Email</label>
             </div>
             <div class="input-box">
-                <input type="password" name="txt_password"  required>
+                <input type="password" name="txt_password" required>
                 <label>Password</label>
             </div>
             <div class="forgot-pass">
                 <a href="#">Forgot your password?</a>
             </div>
             <button type="submit" class="btn">Login</button>
-            <div class="signup-link">
-                <span>Don't have an account?</span>
-                <a href="{% url 'webguest:userregistration' %}">Signup</a>
-            </div>
         </form>
+        <div class="signup-link">
+            <span>Don't have an account?</span>
+            <!-- Call the JavaScript function when clicking on Signup -->
+            <a href="#" onclick="openSignupPopup()">Signup</a>
+        </div>
     </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="card">
+                <a href="{% url 'webguest:userregistration' %}">User <br>Registration</a>
+            </div>
+            <div class="card">
+                <a href="{% url 'webguest:doctorregistration' %}">Doctor Registration</a>
+            </div>
+            <div class="card">
+                <a href="{% url 'webguest:clinicregistration' %}">Clinic Registration</a>
+            </div>
+            <div class="card">
+                <a href="{% url 'webguest:pharmacyregistration' %}">Pharmacy Registration</a>
+            </div>
+            <span class="close" onclick="closeSignupPopup()">&times;</span>
+        </div>
+    </div>
+
+    <script>
+        function openSignupPopup() {
+            // Get the modal
+            var modal = document.getElementById("myModal");
+            // Display the modal
+            modal.style.display = "block";
+        }
+
+        function closeSignupPopup() {
+            // Get the modal
+            var modal = document.getElementById("myModal");
+            // Hide the modal
+            modal.style.display = "none";
+        }
+    </script>
 </body>
+
 </html>
