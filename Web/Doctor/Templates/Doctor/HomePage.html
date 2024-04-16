@@ -11,7 +11,7 @@
 	<meta content="" name="description">
 
 	<!-- Favicon -->
-	<link href="{% static 'Doctor/img/favicon.ico' %}" rel="icon">
+	<link href="{% static 'Doctor/src/images/favicon.ico' %}" rel="icon">
 
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +73,7 @@
 
 	<!-- Navbar Start -->
 	<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-		<a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+		<a href="{% url 'webdoctor:homepage' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
 			<img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image"
 				style="width: 300px; height: auto;">
 		</a>
@@ -166,12 +166,7 @@
 
 				</div>
 				<div class="col-lg-3 col-md-6">
-					<h5 class="text-light mb-4">Quick Links</h5>
-					<a class="btn btn-link" href="" class="nav-item nav-link ">Home</a>
-					<a class="btn btn-link" href="" class="nav-item nav-link">My
-						Profile</a>
-					<a class="btn btn-link" href="" class="nav-item nav-link">My
-						Appointments</a>
+		
 				</div>
 			</div>
 		</div>

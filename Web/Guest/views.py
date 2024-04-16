@@ -29,6 +29,12 @@ def index(request):
 def about(request):
     return render(request,"Guest/about.html")
 
+def contact(request):
+    return render(request,"Guest/contact.html")
+
+def doctors(request):
+    return render(request,"Guest/doctors.html")
+
 
 def userregistration(request):
     dis = db.collection("tbl_district").stream()

@@ -1,35 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinic Details</title>
-</head>
+{% extends 'Doctor/Header.html' %}
+{% load static %}
+{% block content %}
 <body>
     <h1 style="text-align: center;">Clinic Details</h1>
     <form action="" method="post">
-        <table align="center" border="1">
-            <tr>
-                <td>#</td>
-                <td>Clinic</td>
-                <td align="center" colspan="2">Action</td>
-            </tr>
+        <div class="card2">
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
+                <div>No.</div>
+                <div style="flex: 1;">Clinic</div>
+                <div style="flex: 1;">Action</div>
+            </div>
             {% for i in clinicdoctors %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.clinic.clinic_name}}</td>
-                <td> {% if i.clinicdoctors.doctor_status == "2" %}
-                    Request Accepted Pending to Add Details
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div>{{forloop.counter}}</div>
+                <div style="flex: 1;">{{i.clinic.clinic_name}}</div>
+                <div style="flex: 1;">
+                    {% if i.clinicdoctors.doctor_status == "2" %}
+                        Request Accepted Pending to Add Details
                     {% elif i.clinicdoctors.doctor_status == "3" %}
-                    <a href="{% url 'webdoctor:viewdetails' i.id%}">View Details </a>
+                        <a href="{% url 'webdoctor:viewdetails' i.id%}">View Details </a>
                     {% else %}
-                    Pending
+                        Pending
                     {% endif %}
-                </td>
-            </tr>
+                </div>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </form>
+    
     {% if msg %}
     <script>
         alert("{{msg}}")
@@ -38,3 +36,4 @@
     {% endif %}
 </body>
 </html>
+{% endblock content %}

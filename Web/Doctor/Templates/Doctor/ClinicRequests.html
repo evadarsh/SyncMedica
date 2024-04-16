@@ -6,21 +6,17 @@
     <h1 style="text-align: center;">Clinic Requests</h1>
     <form action="" method="post">
         <div class="card2">
-            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
-                <div>#</div>
-                <div style="flex: 1;">Clinic</div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold;">
+                <div style="flex: 1;">Clinic Name</div>
                 <div style="flex: 2;">Action</div>
             </div>
             {% for i in clinicdoctors %}
-            <div style="margin-bottom: 5px;">
-                <span>{{forloop.counter}}</span>
-                <span style="margin-left: 20px;">{{i.clinic.clinic_name}}</span>
-                <span style="margin-left: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
+                <div style="flex: 1;">{{i.clinic.clinic_name}}</div>
+                <div style="flex: 2;">
                     <a href="{% url 'webdoctor:rejectclinic' i.id %}">Reject</a>
-                </span>
-                <span style="margin-left: 20px;">
                     <a href="{% url 'webdoctor:updateclinic' i.id %}">Approve</a>
-                </span>
+                </div>
             </div>
             {% endfor %}
         </div>

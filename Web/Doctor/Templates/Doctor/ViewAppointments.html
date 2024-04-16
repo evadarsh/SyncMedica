@@ -1,36 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments</title>
-</head>
+{% extends 'Doctor/Header.html' %}
+{% load static %}
+{% block content %}
+
 <body>
     <h1 style="text-align: center;">Appointments</h1>
     <form action="" method="post">
-        <table align="center" border="1">
-            <tr>
-                <td>#</td>
-                <td>Token Number</td>
-                <td>Patient Name</td>
-                <td>Appointment Date</td>
-                <td align="center">Action</td>
-            </tr>
+        <div class="card2">
+            <div style="display: flex; align-items: center; margin-bottom: 10px; font-weight: bold; color: #000;">
+                <div>No</div>
+                <div style="flex: 1;">Token Number</div>
+                <div style="flex: 1;">Patient Name</div>
+                <div style="flex: 1;">Appointment Date</div>
+                <div style="flex: 1;">Action</div>
+            </div>
             {% for i in appointments %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.appointmentdetails.token}}</td>
-                <td>{{i.user.user_name}}</td>
-                <td>
-                    {{i.appointmentdetails.appointment_date}}
-                </td>
-                <td>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div>{{forloop.counter}}</div>
+                <div style="flex: 1;">{{i.appointmentdetails.token}}</div>
+                <div style="flex: 1;">{{i.user.user_name}}</div>
+                <div style="flex: 1;">{{i.appointmentdetails.appointment_date}}</div>
+                <div style="flex: 1;">
                     <a href="{% url 'webdoctor:prescription' i.id %}">Add Prescription</a>
-                </td>
-            </tr>
+                </div>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </form>
+
     {% if msg %}
     <script>
         alert("{{msg}}")
@@ -38,4 +34,6 @@
     </script>
     {% endif %}
 </body>
+
 </html>
+{% endblock content %}
