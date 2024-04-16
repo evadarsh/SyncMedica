@@ -3,71 +3,92 @@
 {% block content %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>User List</title>
     <style>
         #overlay {
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background-color: transparent; /* semi-transparent white */
-           display: none;
-           backdrop-filter: blur(10px); /* Adjust the blur effect as needed */
-           z-index: 1000; /* Ensure it's above other elements on the page */
-       }
-       #css3-spinner-svg-pulse-wrapper {
-           position: absolute;
-           overflow: hidden;
-           width: 260px;
-           height: 210px;
-           top: 50%;
-           left: 50%;
-           margin-top: -105px;
-           margin-left: -130px;
-           background-color: transparent;
-           animation: none;
-           -webkit-animation: none;
-           z-index: 1001; /* Ensure it's above the overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            /* semi-transparent white */
+            display: none;
+            backdrop-filter: blur(10px);
+            /* Adjust the blur effect as needed */
+            z-index: 1000;
+            /* Ensure it's above other elements on the page */
+        }
 
-       }
+        #css3-spinner-svg-pulse-wrapper {
+            position: absolute;
+            overflow: hidden;
+            width: 260px;
+            height: 210px;
+            top: 50%;
+            left: 50%;
+            margin-top: -105px;
+            margin-left: -130px;
+            background-color: transparent;
+            animation: none;
+            -webkit-animation: none;
+            z-index: 1001;
+            /* Ensure it's above the overlay */
 
-       #css3-spinner-svg-pulse {
-           position: absolute;
-           top: 50%;
-           left: 50%;
-           margin-top: -105px;
-           margin-left: -275px;
-       }
+        }
 
-       #css3-spinner-pulse {
-           stroke-dasharray: 281;
-           -webkit-animation: dash 5s infinite linear forwards;
-       }
+        #css3-spinner-svg-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -105px;
+            margin-left: -275px;
+        }
 
-       /*Animation*/
-       @-webkit-keyframes dash {
-           from {
-               stroke-dashoffset: 814;
-           }
+        #css3-spinner-pulse {
+            stroke-dasharray: 281;
+            -webkit-animation: dash 5s infinite linear forwards;
+        }
 
-           to {
-               stroke-dashoffset: -814;
-           }
-       }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            background-color: #f2f2f2;
+            color: black;
+            /* Add black font color */
+        }
 
-       @keyframes dash {
-           from {
-               stroke-dashoffset: 814;
-           }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
 
-           to {
-               stroke-dashoffset: -814;
-           }
-       }
-   </style>
+        /*Animation*/
+        @-webkit-keyframes dash {
+            from {
+                stroke-dashoffset: 814;
+            }
+
+            to {
+                stroke-dashoffset: -814;
+            }
+        }
+
+        @keyframes dash {
+            from {
+                stroke-dashoffset: 814;
+            }
+
+            to {
+                stroke-dashoffset: -814;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div id="overlay"></div>
     <div id='css3-spinner-svg-pulse-wrapper'>
@@ -77,9 +98,9 @@
                 d='M0,90L250,90Q257,60 262,87T267,95 270,88 273,92t6,35 7,-60T290,127 297,107s2,-11 10,-10 1,1 8,-10T319,95c6,4 8,-6 10,-17s2,10 9,11h210' />
         </svg>
     </div>
-    <h1 style="text-align: center;">Patient List</h1>
+    <h1 style="text-align: center;  font-weight: 800; color: #000000;">Patient List</h1>
     <div align="center">
-    <input  type="search" name="txt_patientid" id="txt_patientid" value="sm-" onkeyup="searchPatient()">
+        <input type="search" name="txt_patientid" id="txt_patientid" value="sm-" onkeyup="searchPatient()">
     </div>
     <br>
     <br>
@@ -91,20 +112,21 @@
                 <th>Action</th>
             </tr>
             {% for i in users %}
-                <tr>
-                    <td>{{ i.userdata.patient_id }}</td>
-                    <td>{{ i.userdata.user_name }}</td>
-                    <td><a href="{% url 'webpharmacy:checkstatus' i.id %}">View Prescriptions</a></td>
-                </tr>
+            <tr>
+                <td>{{ i.userdata.patient_id }}</td>
+                <td>{{ i.userdata.user_name }}</td>
+                <td><a href="{% url 'webpharmacy:checkstatus' i.id %}">View Prescriptions</a></td>
+            </tr>
             {% endfor %}
         </table>
     </div>
 </body>
+
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $("#overlay").hide();
-     $("#css3-spinner-svg-pulse-wrapper").hide();
+    $("#css3-spinner-svg-pulse-wrapper").hide();
     function searchPatient() {
         var pid = document.getElementById("txt_patientid").value
         var ur = "{% url 'webpharmacy:ajaxsearch_patient' %}"

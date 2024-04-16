@@ -128,7 +128,7 @@ def pharmacyregistration(request):
                 "pharmacy_address":request.POST.get("txt_address"),
                 "pharmacy_status":"0"}
         db.collection("tbl_pharmacy").add(pharmacy)
-        return redirect("webguest:pharmacyregistration")
+        return redirect("webguest:login")
     else:
         return render(request,"Guest/PharmacyRegistration.html",{"district":dis_data})
     
@@ -178,7 +178,7 @@ def doctorregistration(request):
                 "doctor_about":request.POST.get("txt_about"),
                 "doctor_status":"0"}
         db.collection("tbl_doctor").add(doctor)
-        return redirect("webguest:doctorregistration")
+        return redirect("webguest:login")
     else:
         return render(request,"Guest/DoctorRegistration.html",{"district":dis_data,"department":dip_data})
 
@@ -225,7 +225,7 @@ def clinicregistration(request):
                 "clinic_address":request.POST.get("txt_address"),
                 "clinic_status":"0"}
         db.collection("tbl_clinic").add(clinic)
-        return redirect("webguest:clinicregistration")
+        return redirect("webguest:login")
     else:
         return render(request,"Guest/ClinicRegistration.html",{"district":dis_data})
 

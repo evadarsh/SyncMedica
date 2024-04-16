@@ -137,14 +137,14 @@ def viewdetails(request,id):
             # print(times["time_from"] ,times["time_to"])
             send_mail(
                 'Appointment Successfull', #subject
-                "\rHello" + str(name) +"\r\nYour appointment for " + dname + ".\n\n for the date and time " + str(days) + "," + str(times["time_from"]) + "to" + str(times["time_to"]) +"Your Token number is" + str(token) + "\r\n\n Thanks. \r\n Sync Medica.",#body
+                "\rHello" + str(name) +"\r\n Your appointment for " + dname + ".\n Date and Time " + str(days) + "," + str(times["time_from"]) + "to" + str(times["time_to"]) + "Your Token number is" + str(token) + "\r\n\n Thanks. \r\n Sync Medica.",#body
                 settings.EMAIL_HOST_USER,
                 [email]
             )
             datedata = date.today()
             data = {"consultingdetails_id":request.POST.get("sel_time"),"appointment_time":request.POST.get("sel_time"),"appointment_date":request.POST.get("txt_date"),"user_id":(request.session["uid"]),"booking_date":str(datedata),"appointment_status":"0","token":token}
             db.collection("tbl_appointments").add(data)
-            return redirect("webuser:homepage")
+            return redirect("webuser:viewappointments")
         else:
             return render(request,"User/ViewDetails.html",{"consultingdetails":cdata})
     else:

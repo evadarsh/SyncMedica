@@ -60,7 +60,11 @@ def registration(request):
 
 def medicalofficerregistration(request):
     medicalofficer = db.collection("tbl_medicalofficer").stream()
-    medicalofficer_data = []
+    medicalofficerdatalist = []
+    for doc in medicalofficer:
+        data = doc.to_dict()
+        medicalofficerdatalist.append({"medicaldata":data,"id":doc.id})
+        
     dis = db.collection("tbl_district").stream()
     dis_data = []
     for i in dis:
@@ -89,7 +93,11 @@ def medicalofficerregistration(request):
         db.collection("tbl_medicalofficer").add(medicalofficer)
         return redirect("webadmin:medicalofficerregistration")
     else:
-        return render(request,"Admin/MedicalOfficerRegistration.html",{"district":dis_data,"medicalofficer":medicalofficer_data})
+        return render(request,"Admin/MedicalOfficerRegistration.html",{"district":dis_data,"medicalofficer_data": medicalofficerdatalist})
+
+def removemedicalofficer(request,id):
+    db.collection("tbl_medicalofficer").document(id).delete()
+    return redirect("webadmin:medicalofficerregistration")
 
 def district(request):
     dis = db.collection("tbl_district").stream()

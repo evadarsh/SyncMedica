@@ -86,7 +86,7 @@
                 <a href="{% url 'webguest:about' %}" class="nav-item nav-link">About</a>
                 <a href="{% url 'webguest:doctors' %}" class="nav-item nav-link">Doctors</a>
                 
-                <a href="{% url 'webguest:login' %}" class="nav-item nav-link">Contact</a>
+                <a href="{% url 'webguest:contact' %}" class="nav-item nav-link">Contact</a>
             </div>
             <a href="{% url 'webguest:login' %}" class="btn btn-primary py-2 px-4 ms-3">Login</a>
         </div>
@@ -106,8 +106,8 @@
 						<div class="p-3" style="max-width: 900px;">
                             <h5 class="text-white text-uppercase mb-3 animated slideInDown">Keep Your  Health</h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">Take The Best Quality HealthCare Treatment</h1>
-                            <a href="appointment.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Appointment</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>
+                            <a href="{% url 'webguest:login' %}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Appointment</a>
+                            <a href="{% url 'webguest:contact' %}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
 						<div class="p-3" style="max-width: 900px;">
                             <h5 class="text-white text-uppercase mb-3 animated slideInDown">Keep Your Health</h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">Take The Best Quality HealthCare Treatment</h1>
-                            <a href="appointment.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Appointment</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>
+                            <a href="{% url 'webguest:login' %}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Appointment</a>
+                            <a href="{% url 'webguest:contact' %}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                             <h6 class="text-white mb-0">Sunday</h6>
                             <p class="mb-0"> 8:00am - 5:00pm</p>
                         </div>
-                        <a class="btn btn-light" href="">Appointment</a>
+                        <a class="btn btn-light" href="{% url 'webguest:login' %}">Appointment</a>
                     </div>
                 </div>
                 <div class="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
@@ -168,18 +168,18 @@
                                 placeholder="Appointment Date" data-target="#date" data-toggle="datetimepicker" style="height: 40px;">
                         </div>
                         <select class="form-select bg-light border-0 mb-3" style="height: 40px;">
-                            <option selected>Select A Service</option>
-                            <option value="1">Service 1</option>
-                            <option value="2">Service 2</option>
-                            <option value="3">Service 3</option>
+                            <option selected>Select A Departments</option>
+                            <option value="1">Dermatology</option>
+                            <option value="2">General</option>
+                            <option value="3">Pediatrics</option>
                         </select>
-                        <a class="btn btn-light" href="">Search Doctor</a>
+                        <a class="btn btn-light" href="{% url 'webguest:login' %}">Search Doctor</a>
                     </div>
                 </div>
                 <div class="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
                     <div class="bg-secondary d-flex flex-column p-5" style="height: 300px;">
                         <h3 class="text-white mb-3">Make Appointment</h3>
-                        <p class="text-white">Ipsum erat ipsum dolor clita rebum no rebum dolores labore, ipsum magna at eos et eos amet.</p>
+                        <p class="text-white">Committed to Your Health and Well-being</p>
                         <h2 class="text-white mb-0">+91 7510849660</h2>
                     </div>
                 </div>
@@ -196,26 +196,27 @@
                 <div class="col-lg-7">
                     <div class="section-title mb-4">
                         <h5 class="position-relative d-inline-block text-primary text-uppercase">About Us</h5>
-                        <h1 class="display-5 mb-0">The World's Best HealthCare Clinic That You Can Trust</h1>
+                        <h1 class="display-5 mb-0">The World's Best Family Clinic That You Can Trust</h1>
                     </div>
-                    <h4 class="text-body fst-italic mb-4">Diam dolor diam ipsum sit. Clita erat ipsum et lorem stet no lorem sit clita duo justo magna dolore</h4>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
+                    <h4 class="text-body fst-italic mb-4">Committed to Your Health and Well-being</h4>
+                    <p class="mb-4">We provide to you the best choice for you. Adjust it to your health needs and make sure your undergo treatment with our
+                        highly qualified doctors you can consult with us which type of service is suitable for your health</p>
                     <div class="row g-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.3s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Award Winning</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Professional Staff</h5>
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Experienced Doctors</h5>
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Quality Clinics</h5>
                         </div>
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
                             <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>24/7 Opened</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5>
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Best Medicines</h5>
                         </div>
                     </div>
-                    <a href="appointment.html" class="btn btn-primary py-3 px-5 mt-4 wow zoomIn" data-wow-delay="0.6s">Make Appointment</a>
+                    <a href="{% url 'webguest:login' %}" class="btn btn-primary py-3 px-5 mt-4 wow zoomIn" data-wow-delay="0.6s">Make Appointment</a>
                 </div>
                 <div class="col-lg-5" style="min-height: 500px;">
                     <div class="position-relative h-100">
-						<img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="{% static 'Main/img/about.jpg' %}" style="object-fit: cover;">
-					</div>
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="{% static 'Main/img/about.jpg' %}" style="object-fit: cover;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -229,15 +230,15 @@
                     <div class="owl-carousel testimonial-carousel rounded p-5 wow zoomIn" data-wow-delay="0.6s">
                         <div class="testimonial-item text-center text-white">
                             <img class="img-fluid mx-auto rounded mb-4" src="{% static 'Main/img/testimonial-1.jpg' %}" alt="">
-							<p class="fs-5">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et, nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>
+							<p class="fs-5">I appreciate the cleanliness of the office!  Such a great benefit that the office was open on Easter evening.  The front desk attendant was so nice and helpful.  It was the best walk in clinic experience.</p>
                             <hr class="mx-auto w-25">
-                            <h4 class="text-white mb-0">Client Name</h4>
+                            <h4 class="text-white mb-0">Amala</h4>
                         </div>
                         <div class="testimonial-item text-center text-white">
                             <img class="img-fluid mx-auto rounded mb-4" src="{% static 'Main/img/testimonial-2.jpg' %}" alt="">
-							<p class="fs-5">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et, nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>
+							<p class="fs-5">I was treated with respect and the staff had a professional attitude. I would recommend Well-Key to anyone who is looking for an Urgent Care and already have. Everyone was great!</p>
                             <hr class="mx-auto w-25">
-                            <h4 class="text-white mb-0">Client Name</h4>
+                            <h4 class="text-white mb-0">Miya</h4>
                         </div>
                     </div>
                 </div>
@@ -255,23 +256,23 @@
                     <div class="section-title bg-light rounded h-100 p-5">
                         <h5 class="position-relative d-inline-block text-primary text-uppercase">Our Doctors</h5>
                         <h1 class="display-6 mb-4">Meet Our Certified & Experienced Doctors</h1>
-                        <a href="appointment.html" class="btn btn-primary py-3 px-5">Appointment</a>
+                        <a href="{% url 'webguest:login' %}" class="btn btn-primary py-3 px-5">Appointment</a>
                     </div>
                 </div>
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                     <div class="team-item">
                         <div class="position-relative rounded-top" style="z-index: 1;">
-							<img class="img-fluid rounded-top w-100" src="{% static 'Main/img/team-1.jpg' %}" alt="">
+                            <img class="img-fluid rounded-top w-100" src="{% static 'Main/img/team-1.jpg' %}" alt="">
                             <div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-								<a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-instagram fw-normal"></i></a>
                             </div>
                         </div>
                         <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                            <h4 class="mb-2">Dr. John Doe</h4>
-                            <p class="text-primary mb-0">Implant Surgeon</p>
+                            <h4 class="mb-2">Dr. John Jacob</h4>
+                            <p class="text-primary mb-0">Neurology</p>
                         </div>
                     </div>
                 </div>
@@ -287,25 +288,25 @@
                             </div>
                         </div>
                         <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                            <h4 class="mb-2">Dr. John Doe</h4>
-                            <p class="text-primary mb-0">Implant Surgeon</p>
+                            <h4 class="mb-2">Dr. Sumithra</h4>
+                            <p class="text-primary mb-0">Gynecology</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.1s">
                     <div class="team-item">
                         <div class="position-relative rounded-top" style="z-index: 1;">
-							<img class="img-fluid rounded-top w-100" src="{% static 'Main/img/team-3.jpg' %}" alt="">
+                            <img class="img-fluid rounded-top w-100" src="{% static 'Main/img/team-3.jpg' %}" alt="">
                             <div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-								<a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-instagram fw-normal"></i></a>
                             </div>
                         </div>
                         <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                            <h4 class="mb-2">Dr. John Doe</h4>
-                            <p class="text-primary mb-0">Implant Surgeon</p>
+                            <h4 class="mb-2">Dr. Rahul Ram</h4>
+                            <p class="text-primary mb-0">Cardiology</p>
                         </div>
                     </div>
                 </div>
@@ -321,8 +322,8 @@
                             </div>
                         </div>
                         <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                            <h4 class="mb-2">Dr. John Doe</h4>
-                            <p class="text-primary mb-0">Implant Surgeon</p>
+                            <h4 class="mb-2">Dr. Radhika </h4>
+                            <p class="text-primary mb-0">Pediatrics</p>
                         </div>
                     </div>
                 </div>
@@ -338,8 +339,8 @@
                             </div>
                         </div>
                         <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                            <h4 class="mb-2">Dr. John Doe</h4>
-                            <p class="text-primary mb-0">Implant Surgeon</p>
+                            <h4 class="mb-2">Dr. Majeed Rahman</h4>
+                            <p class="text-primary mb-0">Dermatology</p>
                         </div>
                     </div>
                 </div>
@@ -347,18 +348,14 @@
         </div>
     </div>
     <!-- Team End -->
+    
 
 
     <!-- Newsletter Start -->
     <div class="container-fluid position-relative pt-5 wow fadeInUp" data-wow-delay="0.1s" style="z-index: 1;">
         <div class="container">
             <div class="bg-primary p-5">
-                <form class="mx-auto" style="max-width: 600px;">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-white p-3" placeholder="Your Email">
-                        <button class="btn btn-dark px-4">Sign Up</button>
-                    </div>
-                </form>
+                
             </div>
         </div>
     </div>
@@ -372,22 +369,14 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Quick Links</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                        <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-light mb-2" href="{% url 'webguest:index' %}"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="{% url 'webguest:about' %}"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="{% url 'webguest:doctors' %}"><i class="bi bi-arrow-right text-primary me-2"></i>Doctors</a>
+                        <a class="text-light" href="{% url 'webguest:contact' %}"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h3 class="text-white mb-4">Popular Links</h3>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                        <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Get In Touch</h3>
@@ -396,13 +385,7 @@
                     <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+91 75108496600</p>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h3 class="text-white mb-4">Follow Us</h3>
-                    <div class="d-flex">
-                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#"><i class="fab fa-instagram fw-normal"></i></a>
-                    </div>
+
                 </div>
             </div>
         </div>

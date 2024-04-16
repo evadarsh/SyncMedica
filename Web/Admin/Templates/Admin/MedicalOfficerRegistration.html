@@ -7,59 +7,58 @@
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table align="center" border="1">
-        <tr>
-            <td>Photo</td>
-            <td><input type="file" name="txt_photo" id=""></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="txt_name" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>District</td>
-            <td><select name="sel_district" id="sel_district">
-                <option value="">...Select...</option>
-                {% for i in district %}
-                <option value="{{i.id}}">{{i.district.district_name}}</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td>Contact</td>
-            <td><input type="text" name="txt_contact" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="email" name="txt_email" id="" value=""></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="txt_password" id="" value=""></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Register"></td>
-        </tr>
-    </table>
-    <br><br>
-    <table align="center" border="1">
-        <tr>
-            <td>#</td>
-            <td>Medical Officer</td>
-            <td align="center" colspan="2">Action</td>
-        </tr>
-        {% for i in medicalofficer %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.medicalofficer.medicalofficer_name}}</td>
-            <td>
-                <a href="">Delete</a>
-            </td>
-            <td>
-                <a href="">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="txt_photo" id=""></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id="" value=""></td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td><select name="sel_district" id="sel_district">
+                        <option value="">...Select...</option>
+                        {% for i in district %}
+                        <option value="{{i.id}}">{{i.district.district_name}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="txt_contact" id="" value=""></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email" id="" value=""></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="txt_password" id="" value=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Register"></td>
+            </tr>
+        </table>
+        <br><br>
+        <table align="center" border="1">
+            <tr>
+                <td>#</td>
+                <td>Medical Officer Name</td>
+                <td>Medical Officer Email</td>
+                <td align="center" colspan="3">Action</td>
+            </tr>
+            {% for i in medicalofficer_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.medicaldata.medicalofficer_name }}</td>
+                <td>{{ i.medicaldata.medicalofficer_email }}</td>
+                <td>
+                    <a href="{% url 'webadmin:removemedicalofficer' i.id %}">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
 </body>
 {% if msg %}
 <script>
@@ -67,5 +66,6 @@
     window.location = "{% url 'webadmin:medicalofficerregistration' %}"
 </script>
 {% endif %}
+
 </html>
 {% endblock content %}

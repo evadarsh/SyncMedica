@@ -102,11 +102,27 @@ def rejecteddoctorslist(request):
 def acceptdoctor(request,id):
     data = {"doctor_status":"1"}
     db.collection("tbl_doctor").document(id).update(data)
+    dname = db.collection("tbl_doctor").document(id).get().to_dict()["doctor_name"]
+    email = db.collection("tbl_doctor").document(id).get().to_dict()["doctor_email"]
+    send_mail(
+                'Verification Successful',  
+                "\rHello " + dname + ",\r\n\nWe have completed your document verifications and now you are eligible to use SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:accepteddoctorslist")
 
 def rejectdoctor(request,id):
     data = {"doctor_status":"2"}
     db.collection("tbl_doctor").document(id).update(data)
+    dname = db.collection("tbl_doctor").document(id).get().to_dict()["doctor_name"]
+    email = db.collection("tbl_doctor").document(id).get().to_dict()["doctor_email"]
+    send_mail(
+                'Verification Rejected',  
+                "\rHello " + dname + ",\r\n\nWe are unable to complete your document verifications due to some missing documents,You are requested to upload all relevent documents or visit the Medical Office for completing the document varifications to and enjoy SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:rejecteddoctorslist")
 
 def approveclinic(request):
@@ -148,11 +164,27 @@ def rejectedclinicslist(request):
 def acceptclinic(request,id):
     data = {"clinic_status":"1"}
     db.collection("tbl_clinic").document(id).update(data)
+    cname = db.collection("tbl_clinic").document(id).get().to_dict()["clinic_name"]
+    email = db.collection("tbl_clinic").document(id).get().to_dict()["clinic_email"]
+    send_mail(
+                'Verification Successful',  
+                "\rHello " + cname + ",\r\n\nWe have completed your document verifications and now you are eligible to use SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:acceptedclinicslist")
 
 def rejectclinic(request,id):
     data = {"clinic_status":"2"}
     db.collection("tbl_clinic").document(id).update(data)
+    cname = db.collection("tbl_clinic").document(id).get().to_dict()["clinic_name"]
+    email = db.collection("tbl_clinic").document(id).get().to_dict()["clinic_email"]
+    send_mail(
+                'Verification Rejected',  
+                "\rHello " + cname + ",\r\n\nWe are unable to complete your document verifications due to some missing documents,You are requested to upload all relevent documents or visit the Medical Office for completing the document varifications to and enjoy SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:rejectedclinicslist")
 
 def approvepharmacy(request):
@@ -195,10 +227,26 @@ def rejectedpharmacieslist(request):
 def acceptpharmacy(request,id):
     data = {"pharmacy_status":"1"}
     db.collection("tbl_pharmacy").document(id).update(data)
+    pname = db.collection("tbl_pharmacy").document(id).get().to_dict()["pharmacy_name"]
+    email = db.collection("tbl_pharmacy").document(id).get().to_dict()["pharmacy_email"]
+    send_mail(
+                'Verification Successful',  
+                "\rHello " + pname + ",\r\n\nWe have completed your document verifications and now you are eligible to use SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:acceptedpharmacieslist")
 
 def rejectpharmacy(request,id):
     data = {"pharmacy_status":"2"}
     db.collection("tbl_pharmacy").document(id).update(data)
+    pname = db.collection("tbl_pharmacy").document(id).get().to_dict()["pharmacy_name"]
+    email = db.collection("tbl_pharmacy").document(id).get().to_dict()["pharmacy_email"]
+    send_mail(
+                'Verification Rejected',  
+                "\rHello " + pname + ",\r\n\nWe are unable to complete your document verifications due to some missing documents,You are requested to upload all relevent documents or visit the Medical Office for completing the document varifications to and enjoy SyncMedica services.\r\n\nRegards.\r\nSync Medica.",  # Body
+                settings.EMAIL_HOST_USER,
+                [email],
+                )
     return redirect("webmedicalofficer:rejectedpharmacieslist")
 

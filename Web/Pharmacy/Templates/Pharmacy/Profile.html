@@ -1,6 +1,27 @@
 {% extends 'Pharmacy/Header.html' %}
 {% load static %}
 {% block content %}
+<head>
+    <style>
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            background-color: #f2f2f2;
+            color: black;
+            /* Add black font color */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+        h1 {
+            font-weight: 800; 
+            color: #000000;
+        }
+    </style>
+</head>
 <body>
     <h1 style="text-align: center;">My Profile</h1>
     <table align="center" border="1">
@@ -23,7 +44,10 @@
         <tr>
             <td colspan="2" align="center">
                 <a href="{% url 'webpharmacy:editprofile' %}">Editprofile</a>
+                <br>
                 <a href="{% url 'webpharmacy:changepassword' %}">ChangePassword</a>
+                <br>
+                <a href="{% url 'webpharmacy:logout' %}">Logout</a>
             </td>
         </tr>
     </table>

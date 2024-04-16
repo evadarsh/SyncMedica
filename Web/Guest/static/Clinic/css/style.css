@@ -5,6 +5,7 @@
     --dark: #00B3A5;
 }
 
+
 .fw-medium {
     font-weight: 500 !important;
 }
@@ -24,6 +25,7 @@
     bottom: 45px;
     z-index: 99;
 }
+
 
 
 /*** Spinner ***/
@@ -146,6 +148,74 @@
         transition: .5s;
         opacity: 1;
     }
+}
+
+.main-card {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+}
+
+.card {
+    width: 200px; /* Set a fixed width for the card */
+    padding: 20px;
+    margin: 10px; /* Add margin for spacing between cards */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    text-align: center; /* Center text horizontally */
+}
+
+.card img {
+    border-radius: 50%; /* Make the image round */
+}
+
+.card a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.card a:hover {
+    background-color: #0056b3;
+}
+
+.main-card2 {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+}
+
+.card2 {
+    width: 1000px; /* Set a fixed width for the card2 */
+    padding: 20px;
+    margin: 10px auto; /* Add margin for spacing between card2s and center horizontally */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    text-align: center; /* Center text horizontally */
+}
+
+.card2 img {
+    border-radius: 50%; /* Make the image round */
+}
+
+.card2 a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.card2 a:hover {
+    background-color: #0056b3;
 }
 
 

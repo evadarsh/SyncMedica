@@ -1,53 +1,57 @@
 {% extends 'Clinic/Header.html' %}
 {% load static %}
 {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Doctor</title>
+</head>
 <body>
-    <h1 style="text-align: center;">Add Doctor</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        <table align="center" border="1">
-        <tr>
-            <td>Doctor</td>
-            <td><select name="sel_doctor" id="sel_doctor">
-                <option value="">...Select...</option>
-                {% for i in doctor %}
-                <option value="{{i.id}}">{{i.doctor.doctor_name}}({{i.doctor.doctor_qualification}})</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Add"></td>
-        </tr>
-    </table>
-    <br><br>
-    <table align="center" border="1">
-        <tr>
-            <td>#</td>
-            <td>Doctors</td>
-            <td align="center" colspan="2">Action</td>
-        </tr>
+    <div style="margin: 100px;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div style="text-align: center;">
+                <div>
+                    <label for="sel_doctor" style="color: black; font-weight: 800;">Doctor</label>
+                    <select name="sel_doctor" id="sel_doctor">
+                        <option value="">...Select...</option>
+                        {% for i in doctor %}
+                        <option value="{{i.id}}">{{i.doctor.doctor_name}}({{i.doctor.doctor_qualification}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="submit" value="Add">
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="main-card"id="result">
         {% for c in clinicdoctors %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{c.doctor.doctor_name}}</td>
-            <br><br>
-            <td colspan="4" align="center" style="color: red;">
+        <div class="card">
+            <div>{{c.doctor.doctor_name}}</div>
+            <div colspan="4" align="center" style="color: red;">
                 {% if c.clinicdoctors.doctor_status == "0" %}
                 Request Pending
                 {% elif c.clinicdoctors.doctor_status == "2" %}
                 Request Approved |  <a href="{% url 'webclinic:consultingdetails' c.id %}">Add Details</a>
+                <br><br>
                 {% elif c.clinicdoctors.doctor_status == "3" %}
+                
                 <a href="{% url 'webclinic:consultingdetails' c.id %}">Add/Update Details</a>
+                <br><br>
                 {% else %}
                 Pending
-                {% endif %}
-            </td>
-            <td>
-                <a href="{% url 'webclinic:deletedoctor' c.id %}">Delete</a>
-            </td>
-        </tr>
+                {% endif %}</div>
+            <div>{{i.clinic.clinic_contact}}</div>
+            <div><a href="{% url 'webclinic:deletedoctor' c.id %}">Delete</a></div>
+        </div>
         {% endfor %}
-    </table>
+    </div>
 </body>
 </html>
 {% endblock content %}

@@ -3,6 +3,7 @@
 {% block content %}
 
 <body>
+    {% if appointments %}
     <h1 style="text-align: center;">Appointments</h1>
     <form action="" method="post">
         <div class="card2">
@@ -26,6 +27,9 @@
             {% endfor %}
         </div>
     </form>
+    {% else %}
+    <h1 style="color: red;" align="center">No Appointment Tokens</h1>
+    {% endif %}
 
     {% if msg %}
     <script>

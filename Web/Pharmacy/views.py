@@ -19,6 +19,13 @@ def homepage(request):
         return render(request,"Pharmacy/HomePage.html",{"pharmacy":pharmacy})
     else:
         return redirect("webguest:login")
+    
+def logout(request):
+    if 'pid' in request.session:
+        request.session.pop("pid")
+        return redirect("webguest:login")
+    else:
+        return redirect("webguest:login")
 
 def profile(request):
     if 'pid' in request.session:

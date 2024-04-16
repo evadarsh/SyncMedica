@@ -3,37 +3,28 @@
 {% block content %}
 
 <body>
-    <h1 style="text-align: center;">Doctors</h1>
-    <table align="center" border="1">
-        <tr>
-            <td>#</td>
-            <td>Doctors</td>
-            <td align="center" colspan="2">Action</td>
-        </tr>
-        {% if doctorslist %}
-        {% for c in doctorslist %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{c.doctor.doctor_name}}</td>
-            <td>
-                {% if c.doctorslist.doctor_status == "2" %}
-                Request Approved | <a href="{% url 'webclinic:consultingdetails' c.id %}">Add Details</a>
-                {% elif c.doctorslist.doctor_status == "3" %}
+    <h1 style="text-align: center; font-weight: bold; color: #000;">Doctors</h1>
+    <div class="main-card"id="result">
+        {% for c in clinicdoctors %}
+        <div class="card">
+            <div style="text-align: center; font-weight: bold; color: #000;">{{c.doctor.doctor_name}}</div>
+            <br>
+            <div colspan="4" align="center" style="color: red;">
+                {% if c.clinicdoctors.doctor_status == "2" %}
+                Request Approved |  <a href="{% url 'webclinic:consultingdetails' c.id %}">Add Details</a>
+                <br><br>
+                {% elif c.clinicdoctors.doctor_status == "3" %}
+                
                 <a href="{% url 'webclinic:consultingdetails' c.id %}">Add/Update Details</a>
-                {% endif %}
-            </td>
-            <td>
-                <a href="{% url 'webclinic:deletedoctor' c.id %}">Delete</a>
-            </td>
-        </tr>
+                <br><br>
+                {% else %}
+                Pending
+                {% endif %}</div>
+            <div>{{i.clinic.clinic_contact}}</div>
+            <div><a href="{% url 'webclinic:deletedoctor' c.id %}">Delete</a></div>
+        </div>
         {% endfor %}
-        {% else %}
-
-        <td colspan="4" align="center" style="color: red;">No Doctors found</td>
-
-
-        {% endif %}
-    </table>
+    </div>
 </body>
 
 </html>

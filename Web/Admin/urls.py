@@ -5,6 +5,7 @@ urlpatterns = [
     path('homepage/',views.homepage,name="homepage"),
     path('registration/',views.registration,name="registration"),
     path('medicalofficerregistration/',views.medicalofficerregistration,name="medicalofficerregistration"),
+    path('removemedicalofficer/<str:id>',views.removemedicalofficer,name="removemedicalofficer"),
     path('district/',views.district,name="district"),
     path('deletedistrict/<str:id>',views.deletedistrict,name="deletedistrict"),
     path('updatedistrict/<str:id>',views.updatedistrict,name="updatedistrict"),

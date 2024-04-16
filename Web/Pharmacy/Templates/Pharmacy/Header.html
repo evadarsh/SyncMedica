@@ -52,7 +52,8 @@
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container pt-3 ">
           <a class="navbar-brand" href="{% url 'webpharmacy:homepage' %}">
-            <img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image" style="width: 300px; height: auto;">
+            <img src="{% static 'Main/img/Sync medica banner.png' %}" alt="Logo Image"
+              style="width: 300px; height: auto;">
           </a>
           <div class="collapse navbar-collapse" id="">
             <div class="d-flex  flex-column flex-lg-row align-items-center w-100 justify-content-end">
@@ -61,10 +62,10 @@
                   <a class="nav-link" href="{% url 'webpharmacy:homepage' %}">Home </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'webpharmacy:users' %}">Search</a>
+                  <a class="nav-link" href="{% url 'webpharmacy:medicine' %}">Medicine</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'webpharmacy:medicine' %}">Medicine</a>
+                  <a class="nav-link" href="{% url 'webpharmacy:users' %}">Search</a>
                 </li>
               </ul>
               <div class="login_btn-contanier ml-0 ml-lg-5">
@@ -86,29 +87,29 @@
     {% block content %}
 
     {% endblock content %}
-  <!-- info section -->
-  <section class="info_section layout_padding2">
-    <div class="container">
-        
-    </div>
-  </section>
+    <!-- info section -->
+    <section class="info_section layout_padding2">
+      <div class="container">
+
+      </div>
+    </section>
 
 
-  <!-- end info section -->
+    <!-- end info section -->
 
-  <!-- footer section -->
-  <section class="container-fluid footer_section">
-    <p>
-      &copy; 2024 All Rights Reserved. Design by
-      <a href="">SyncMedica</a>
-    </p>
-  </section>
-  <!-- footer section -->
+    <!-- footer section -->
+    <section class="container-fluid footer_section">
+      <p>
+        &copy; 2024 All Rights Reserved. Design by
+        <a href="">SyncMedica</a>
+      </p>
+    </section>
+    <!-- footer section -->
 
-  <script type="text/javascript" src="{% static 'Pharmacy/js/jquery-3.4.1.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'Pharmacy/js/bootstrap.js' %}"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
-  </script>
+    <script type="text/javascript" src="{% static 'Pharmacy/js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'Pharmacy/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+    </script>
 </body>
 
 </html>
