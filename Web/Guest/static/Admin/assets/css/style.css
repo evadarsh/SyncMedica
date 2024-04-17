@@ -210,6 +210,23 @@ table.table td h2 span {
 	margin-top: 3px;
 }
 
+th,
+td {
+	padding: 10px;
+	text-align: center;
+	background-color: #322020;
+	color: black;
+	/* Add black font color */
+}
+
+table {
+	border-collapse: collapse;
+	width: 80%;
+}
+h1 {
+	font-weight: 800; 
+	color: #000000;
+}
 /*-----------------
 	3. Helper Class
 -----------------------*/
