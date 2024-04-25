@@ -4,10 +4,13 @@
 {% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Add Medicine</title>
     <style>
         #overlay {
@@ -78,6 +81,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="overlay"></div>
@@ -85,144 +89,149 @@
     <div id='css3-spinner-svg-pulse-wrapper'>
 
         <svg id='css3-spinner-svg-pulse' version='1.2' height='210' width='550' xmlns='http://www.w3.org/2000/svg'
-
             viewport='0 0 60 60' xmlns:xlink='http://www.w3.org/1999/xlink'>
 
             <path id='css3-spinner-pulse' stroke='#DE6262' fill='none' stroke-width='2' stroke-linejoin='round'
-
                 d='M0,90L250,90Q257,60 262,87T267,95 270,88 273,92t6,35 7,-60T290,127 297,107s2,-11 10,-10 1,1 8,-10T319,95c6,4 8,-6 10,-17s2,10 9,11h210' />
 
         </svg>
 
     </div>
 
-        <table cellpadding="10" align="center">
-
-            <tr align="center">
-
-                <td>Medicine Name</td>
-
-                <td>Quantity</td>
-
-                <td>Rate</td>
-
-            </tr>
-
-            <input type="hidden" name="txt_id" value="{{id}}" id="txt_id">
-
-            <tr>
-
-                <td><input type="text" name="txt_name" id="txt_name"></td>
-
-                <td><input type="text" name="txt_quantity" id="txt_quantity"></td>
-
-                <td><input type="text"name="txt_rate" id="txt_rate"></input></td>
-
-                <td colspan="3" align="center"><button onclick="addBill()">Add</button></td>
-
-
-
-            </tr>
-
-        </table>
-
-        <div id="result">
-
-    {% if bill %}
-
-
-
-
-            <table cellpadding="10" align="center">
-
-                <tr>
-
-                    <td>#</td>
-
-                    <td>Medicine Name</td>
-
-                    <td>Count</td>
-
-                    <td>Rate</td>
-
-                    <td>Total</td>
-
-                    <td>Action</td>
-
-                </tr>
-
-                {% for i in bill %}
-
-                <tr>
-
-                    <td>{{forloop.counter}}</td>
-
-                    <td>{{i.bills.Name}}</td>
-
-                    <td><input type="text" name="txt_count" id="txt_count" onchange="checkqty(this.value,'{{i.id}}')" value="{{i.bills.qty}}"></td>
-
-                    <td>{{i.bills.rate}}</td>
-
-                    <td>{{i.bills.rate|mul:i.bills.qty}}</td>
-
-                    <td><i class="fa-solid fa-trash" onclick="deletebill('{{i.id}}')"></i></td>
-
-                </tr>
-
-                {% endfor %}
-
-                <tr>
-
-                    <td colspan="4" align="right">Total</td>
-
-                    <td>{{total}}</td>
-
-                </tr>
-
-                <tr>
-
-                    <td colspan="6" align="right">
-
-                        {% if count == 0 %}
-
-                        <button onclick="submitBill()">Generate Bill</button></td>
-
-                        {% else %}
-
-                        <a href="">View Bill</a>
-
-                        {% endif %}
-
-                </tr>
-
-            </table>
-
-
-
-
-    {% else %}
-
-    <h3 align="center" style="color: red;">No Bills</h3>
-
-    {% endif %}
-
     <table cellpadding="10" align="center">
+
+        <tr align="center">
+
+            <td>Medicine Name</td>
+
+            <td>Quantity</td>
+
+            <td>Rate</td>
+
+        </tr>
+
+        <input type="hidden" name="txt_id" value="{{id}}" id="txt_id">
 
         <tr>
 
-            <td colspan="6" align="right">
+            <td><select name="txt_name" id="txt_name" required>
+                <option value="">...Select...</option>
+                {% for i in medicine %}
+                <option value="{{i.id}}">{{i.medicine.medicine_name}}</option>
+                {% endfor %}
+            </select></td>
 
-                {% if count != 0 %}
+            <td><input type="text" name="txt_quantity" id="txt_quantity" required></td>
 
-                <a href="{% url 'webpharmacy:viewbills' id %}">View Bill</a>
+            <td><input type="text" name="txt_rate" id="txt_rate" required></input></td>
 
-                {% endif %}
+            <td colspan="3" align="center"><button onclick="addBill()">Add</button></td>
+
+
 
         </tr>
 
     </table>
 
-</div>
+    <div id="result">
+
+        {% if bill %}
+
+
+
+
+        <table cellpadding="10" align="center">
+
+            <tr>
+
+                <td>#</td>
+
+                <td>Medicine Name</td>
+
+                <td>Count</td>
+
+                <td>Rate</td>
+
+                <td>Total</td>
+
+                <td>Action</td>
+
+            </tr>
+
+            {% for i in bill %}
+
+            <tr>
+
+                <td>{{forloop.counter}}</td>
+
+                <td>{{i.bills.Name}}</td>
+
+                <td><input type="text" name="txt_count" id="txt_count" onchange="checkqty(this.value,'{{i.id}}')"
+                        value="{{i.bills.qty}}"></td>
+
+                <td>{{i.bills.rate}}</td>
+
+                <td>{{i.bills.rate|mul:i.bills.qty}}</td>
+
+                <td><i class="fa-solid fa-trash" onclick="deletebill('{{i.id}}')"></i></td>
+
+            </tr>
+
+            {% endfor %}
+
+            <tr>
+
+                <td colspan="4" align="right">Total</td>
+
+                <td>{{total}}</td>
+
+            </tr>
+
+            <tr>
+
+                <td colspan="6" align="right">
+
+                    {% if count == 0 %}
+
+                    <button onclick="submitBill()">Generate Bill</button>
+                </td>
+
+                {% else %}
+
+                <a href="">View Bill</a>
+
+                {% endif %}
+
+            </tr>
+
+        </table>
+
+
+
+
+        {% else %}
+
+        <h3 align="center" style="color: red;">No Bills</h3>
+
+        {% endif %}
+
+        <table cellpadding="10" align="center">
+
+            <tr>
+
+                <td colspan="6" align="right">
+
+                    {% if count != 0 %}
+
+                    <a href="{% url 'webpharmacy:viewbills' id %}">View Bill</a>
+
+                    {% endif %}
+
+            </tr>
+
+        </table>
+
+    </div>
 
 </body>
 
@@ -234,7 +243,7 @@
 
     $("#overlay").hide();
 
-     $("#css3-spinner-svg-pulse-wrapper").hide();
+    $("#css3-spinner-svg-pulse-wrapper").hide();
 
     function addBill() {
 
@@ -252,17 +261,17 @@
 
         // console.log(name, qty, rate);
 
-		var ur = "{% url 'webpharmacy:ajaxaddbill' %}"
+        var ur = "{% url 'webpharmacy:ajaxaddbill' %}"
 
-		$.ajax({
+        $.ajax({
 
-			url: ur,
+            url: ur,
 
-			data: { name: name,qty: qty,rate: rate,pre: pre, },
+            data: { qty: qty, rate: rate, pre: pre,name: $('#txt_name option:selected').text() },
 
-			success: function (data) {
+            success: function (data) {
 
-				$("#result").html(data);
+                $("#result").html(data);
 
                 console.log(data);
 
@@ -276,11 +285,11 @@
 
                 $("#css3-spinner-svg-pulse-wrapper").hide();
 
-			},
+            },
 
-		});
+        });
 
-	}
+    }
 
 
 
@@ -293,32 +302,32 @@
 
         $("#css3-spinner-svg-pulse-wrapper").show();
 
-		var ur = "{% url 'webpharmacy:ajaxdeletebill' %}"
+        var ur = "{% url 'webpharmacy:ajaxdeletebill' %}"
 
-		$.ajax({
+        $.ajax({
 
-			url: ur,
+            url: ur,
 
-			data: { id: id,pre: pre, },
+            data: { id: id, pre: pre, },
 
-			success: function (data) {
+            success: function (data) {
 
-				$("#result").html(data);
+                $("#result").html(data);
 
                 $("#overlay").hide();
 
                 $("#css3-spinner-svg-pulse-wrapper").hide();
 
-			},
+            },
 
-		});
+        });
 
-	}
-
-
+    }
 
 
-    function checkqty(qty,id) {
+
+
+    function checkqty(qty, id) {
 
         var pre = document.getElementById("txt_id").value;
 
@@ -328,27 +337,27 @@
 
         // console.log(qty);
 
-		var ur = "{% url 'webpharmacy:checkqty' %}"
+        var ur = "{% url 'webpharmacy:checkqty' %}"
 
-		$.ajax({
+        $.ajax({
 
-			url: ur,
+            url: ur,
 
-			data: { id: id,qty: qty,pre: pre, },
+            data: { id: id, qty: qty, pre: pre, },
 
-			success: function (data) {
+            success: function (data) {
 
-				$("#result").html(data);
+                $("#result").html(data);
 
                 $("#overlay").hide();
 
                 $("#css3-spinner-svg-pulse-wrapper").hide();
 
-			},
+            },
 
-		});
+        });
 
-	}
+    }
 
 
 
@@ -363,31 +372,31 @@
 
         // console.log(qty);
 
-		var ur = "{% url 'webpharmacy:ajaxsubmitbill' %}"
+        var ur = "{% url 'webpharmacy:ajaxsubmitbill' %}"
 
-		$.ajax({
+        $.ajax({
 
-			url: ur,
+            url: ur,
 
-			data: { pre: pre, },
+            data: { pre: pre, },
 
-			success: function (data) {
+            success: function (data) {
 
                 $("#overlay").hide();
 
                 $("#css3-spinner-svg-pulse-wrapper").hide();
 
-				// $("#result").html(data);
+                // $("#result").html(data);
 
                 alert(data.msg)
 
                 window.location = "{% url 'webpharmacy:generatebill' id %}"
 
-			},
+            },
 
-		});
+        });
 
-	}
+    }
 
 </script>
 {% endblock content %}

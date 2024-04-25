@@ -68,23 +68,23 @@
         <table align="center" border="1">
         <tr>
             <td>Image</td>
-            <td><input type="file" name="txt_photo" id=""></td>
+            <td><input type="file" name="txt_photo" id="" ></td>
         </tr>
         <tr>
             <td>Name</td>
-            <td><input type="text" name="txt_name" id="" value=""></td>
+            <td><input type="text" name="txt_name" id="" value="" required pattern="[a-zA-Z]+"></td>
         </tr>
         <tr>
             <td>Contact</td>
-            <td><input type="text" name="txt_contact" id="" value=""></td>
+            <td><input type="text" name="txt_contact" id="" required pattern="[0-9]{10}" value=""></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><input type="email" name="txt_email" id="" value=""></td>
+            <td><input type="email" name="txt_email" id="" value="" required></td>
         </tr>
         <tr>
             <td>Age</td>
-            <td><input type="text" name="txt_age" id="" value=""></td>
+            <td><input type="text" name="txt_age" id="" value="" required pattern="[0-9]{2}" ></td>
         </tr>
         <tr>
             <td>Gender</td>
@@ -112,11 +112,11 @@
         </tr>
         <tr>
             <td>Address</td>
-            <td><input type="text" name="txt_address" id="" value=""></td>
+            <td><input type="text" name="txt_address" id="" value="" required pattern="[a-zA-Z]+" ></td>
         </tr>
         <tr>
             <td>Password</td>
-            <td><input type="password" name="txt_password" id="" value=""></td>
+            <td><input type="password" name="txt_password" id="" value="" required></td>
         </tr>
         <tr>
             <td colspan="2" align="center"><input type="submit" value="Register"></td>

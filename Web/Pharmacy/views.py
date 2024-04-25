@@ -114,6 +114,11 @@ def viewprescriptions(request,id):
     return render(request, "Pharmacy/ViewPrescriptions.html", {'prescriptions': pre_data, 'user_profile': user_profile})
 
 def generatebill(request,id):
+    medi = db.collection("tbl_medicine").stream()
+    medi_data = []
+    for i in medi:
+        data = i.to_dict()
+        medi_data.append({"medicine":data,"id":i.id})
     bill = db.collection("tbl_bill").where("pharmarcy_id", "==", request.session["pid"]).where("prescription_id", "==", id).where("status", "==", 0).order_by("time", direction=firestore.Query.DESCENDING).stream()
     bill_data = []
     total = 0
@@ -124,7 +129,7 @@ def generatebill(request,id):
     # print(total)
     count = db.collection("tbl_bill").where("pharmarcy_id", "==", request.session["pid"]).where("prescription_id", "==", id).where("status", "==", 1).get()
     # print(len(count))
-    return render(request,"Pharmacy/GenerateBill.html",{"bill":bill_data,"id":id,"total":total,"count":len(count)})
+    return render(request,"Pharmacy/GenerateBill.html",{"medicine":medi_data,"bill":bill_data,"id":id,"total":total,"count":len(count)})
 
 def ajaxaddbill(request):
     db.collection("tbl_bill").add({"Name":request.GET.get("name"),"qty":request.GET.get("qty"),"rate":request.GET.get("rate"),"pharmarcy_id":request.session["pid"],"prescription_id":request.GET.get("pre"),"status":0,"time":datetime.now()})
@@ -185,6 +190,7 @@ def viewbills(request,id):
     email = user["user_email"]
     ran = random.randint(100000,999999)
     return render(request,"Pharmacy/View_Bill.html",{"bill":bl_datas,"total":total,"user":user,"date":date,"ran":ran,"phar":pharmacy})
+
 def getuser(id):
     pre = db.collection("tbl_prescription").document(id).get().to_dict()
     user = db.collection("tbl_user").document(pre["user_id"]).get().to_dict()
